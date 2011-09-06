@@ -1,0 +1,128 @@
+/**
+ * Grid
+ * Used for pages that are grid-featured (using the masonry plugin). Basically home/index and category archives.
+ */
+ 
+#grid {
+	//@include column($grid-columns, true);
+	//width: $grid-totalwidth + $grid-margin;
+	margin: 0;
+	padding: 0;
+	@include opacity(0); }
+
+// normally, the boxes will be hidden from init and then shown with js when masonry is run. if no js is enabled, just show them instantly
+body.no-js #grid {
+	@include opacity(1); } 		
+			
+	.box {
+		position: relative;
+		float: left;		
+		background-color: #fff;
+		overflow: hidden;
+		margin-bottom: $grid-margin; }
+	
+		.box .meta {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			height: 30px;
+			background-color: #000;
+			width: 100%;
+			color: #fff; }
+		
+			.box .post-title,
+			.box .product-title {
+				position: relative;
+				float: left;
+				margin: 7px 7px 7px 10px;
+				overflow: hidden;
+				white-space: nowrap; }
+				
+			.box .product-title {
+				max-width: 160px; }
+			
+			.box .product-price {
+				position: relative;
+				float: right;
+				margin: 7px 10px 7px 7px;
+				background-color: #000;
+				z-index: 30; }
+
+		.box a {
+			color: black;
+			text-decoration: none;
+			border: none;				
+			font-weight: normal; }
+	
+	// Option 2: Standard 10px grid spacing/margin between elements
+	.col1 { @include column(1); }			
+	.col2 { @include column(2); }						
+	.col3 { @include column(3); }						
+	.col4 { @include column(4); }						
+	.col5 { @include column(5); }			
+	.col6 { @include column(6); }						
+	.col7 { @include column(7); }						
+	.col8 { @include column(8); }
+	.col9 { @include column(9); }			
+	.col10 { @include column(10); }
+	.col11 { @include column(11); }
+	.col12 { @include column(12); }
+	
+	// Element heights in grid
+	.row1 { height: $grid-columnwidth; }
+	.row2 { height: $grid-columnwidth * 2 + $grid-margin; }
+	.row3 { height: $grid-columnwidth * 3 + $grid-margin * 2; }
+	.row4 { height: $grid-columnwidth * 4 + $grid-margin * 3; }
+	.row5 { height: $grid-columnwidth * 5 + $grid-margin * 4; }
+	.row6 { height: $grid-columnwidth * 6 + $grid-margin * 5; }
+	.row7 { height: $grid-columnwidth * 7 + $grid-margin * 6; }
+	.row8 { height: $grid-columnwidth * 8 + $grid-margin * 7; }
+	.row9 { height: $grid-columnwidth * 9 + $grid-margin * 8; }
+	.row10 { height: $grid-columnwidth * 10 + $grid-margin * 9; }
+	.row11 { height: $grid-columnwidth * 11 + $grid-margin * 10; }
+	.row12 { height: $grid-columnwidth * 12 + $grid-margin * 11; }																		
+
+	// Resize images to fit width
+	.row1 img { height: $grid-columnwidth - 30px; }
+	.row2 img { height: $grid-columnwidth * 2 + $grid-margin - 30px; width: auto; }
+	.row3 img { height: $grid-columnwidth * 3 + $grid-margin * 2 - 30px; width: auto; }
+	.row4 img { height: $grid-columnwidth * 4 + $grid-margin * 3 - 30px; width: auto; }
+	.row5 img { height: $grid-columnwidth * 5 + $grid-margin * 4 - 30px; width: auto; }
+	.row6 img { height: $grid-columnwidth * 6 + $grid-margin * 5 - 30px; width: auto; }
+	.row7 img { height: $grid-columnwidth * 7 + $grid-margin * 6 - 30px; width: auto; }
+	.row8 img { height: $grid-columnwidth * 8 + $grid-margin * 7 - 30px; width: auto; }
+	.row9 img { height: $grid-columnwidth * 9 + $grid-margin * 8 - 30px; width: auto; }
+	.row10 img { height: $grid-columnwidth * 10 + $grid-margin * 9 - 30px; width: auto; }						
+	.row11 img { height: $grid-columnwidth * 11 + $grid-margin * 10 - 30px; width: auto; }
+	.row12 img { height: $grid-columnwidth * 12 + $grid-margin * 11 - 30px; width: auto; }
+	
+	.shop-products img { height: auto; width: auto; }	
+	
+	#post-fbbox, 
+	#post-mcbox {
+		overflow: hidden;
+	}
+	
+	#post-mcbox {
+		background: #000 url('../images/newsletter-text.png') no-repeat right 25px; }
+		
+		#mc_embed_signup { 
+			padding: 10px; 
+			margin-top: 140px;
+			background: transparent; }
+		
+		#post-mcbox form input {
+			float: left;
+			height: 21px;
+			padding: 4px;
+			margin: 0;
+			border: 0; }
+	
+		#post-mcbox form input.emailbutton {
+			float: left;				
+			border: 0;
+			width: 77px;
+			height: 29px;
+			padding: 0;
+			margin: 0;
+		    background: url('../images/newsletter-emailbutton.png') no-repeat top left; }

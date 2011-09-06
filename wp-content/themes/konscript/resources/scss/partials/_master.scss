@@ -1,0 +1,261 @@
+/**
+ * Master
+ * Master template for ost header and footer stuff
+ */
+
+/**
+ * Body - opening and initialization
+ ************************************************/
+body {
+	@include blueprint(true);
+	@include blueprint-typography(true);
+	@include blueprint-utilities;
+	@include blueprint-debug;
+	@include blueprint-interaction;
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	color: $color-primary;
+	font-size: $typography-size-normal; }
+	
+a { outline: 0; }
+form { @include blueprint-form-layout; @include blueprint-form-borders; @include blueprint-form-sizes; }
+
+	/**
+	 * Master Bar - located at the top, fluid width
+	 */
+	#masterbar-container {
+		position: fixed;
+		z-index: 100;
+		top: 0;
+		width: 100%;
+		min-width: 100%;		
+		height: 30px;
+		margin: 0;
+		padding: 0;
+		//background-color: pink;
+		}
+		
+		#masterbar {
+			max-width: 1200px;
+			min-width: 480px;
+			margin: 0 auto;
+			padding: 0px 20px; }
+			
+			ul#masterbar-menu {
+				float: left;
+				padding: 0;
+				overflow: hidden;
+
+					> li {
+						position: relative;
+						float: left;
+						margin: 0;
+						padding: 0;
+						list-style: none;
+						overflow: hidden; 
+						height: 30px; }
+					
+						> li > a {
+							display: block;
+							position: relative;
+							float: left;
+							margin: 0 10px 0 0; // 0 6px 0 0
+							// DIN Eng
+							@include font-dineng();
+							font-size: 20px;
+							line-height: 30px; }
+							
+							> li > ul {
+								display: none; }
+																			
+				li.current-menu-item {}
+				
+			}			
+
+			#masterbar .master-shoppingbag {
+				float: right;
+				margin-right: $grid-margin;
+				height: 30px; }
+		
+				#masterbar .master-shoppingbag a {
+					display: block;
+					margin-left: 5px;
+					// DIN Eng custom font
+					@include font-dineng();
+					font-size: 20px;
+					line-height: 30px; }
+					
+				a.master-shoppingbag-hide {
+					display: none; }
+				
+	/**
+	 * Body Container - contains all centrally aligned stuff, sets the outer frame
+ 	 ************************************************/
+	#body-container {
+		max-width: 1200px;
+		min-width: 480px;
+		margin: 0 auto;
+		padding: 30px 20px 0 20px;
+		//@include container; 
+		}	
+
+		/**
+		 * Header
+		 */
+		#header-container {
+			position: relative;
+			width: 100%;
+			overflow: hidden; }	
+
+			#loader {
+				position: absolute; 
+				left: 500px;
+				top: 60px; }
+
+			#header {}
+				
+				// Site Logo
+				#site-title { 
+					float: left;
+					margin-top: 40px; }
+			
+					#site-title a img {
+						width: $grid-columnwidth * 12 - $grid-margin; }
+
+					#site-title a h2 {
+						@include hide-text();
+						display: none; }
+
+				// Primary Menu
+				ul#primary-menu {
+					float: left;
+					clear: left;
+					width: auto;	
+					margin: 10px 0 0 -7px;
+					padding: 0;
+					overflow: hidden;
+			
+					> li {
+						position: relative;
+						float: left;
+						margin: 0;
+						padding: 0;
+						list-style: none;
+						overflow: hidden; }
+			
+						> li > a {
+							position: relative;
+							float: left;
+							margin: 0 0 0 7px; // 0 6px 0 0
+							text-decoration: none;
+							// DIN Eng custom font
+							@include font-dineng();
+							font-size: 26px; }
+
+							> li > a:hover { }
+				
+																
+					li.current-menu-item {}
+			
+				}
+		
+				.primary-menu-slash {
+					float: left;
+					width: auto;
+					margin: 10px 0 0 7px;
+					padding: 0;
+					// DIN Eng custom font
+					@include font-dineng();
+					font-size: 26px;
+					display: none; }		
+				
+				ul.sub-menu {
+					display: none;
+					position: relative;
+					float: left;
+					margin: 0;
+					padding: 0;
+					white-space: nowrap;
+					overflow: hidden;
+			
+					ul.sub-menu.current {
+						display: block;
+						opacity: 1;
+						width: auto; }
+			
+					> li {
+						display: inline;
+						margin: 0 0 0 5px;
+						padding: 0;
+						list-style: none;
+						white-space: nowrap;			
+						overflow: hidden; }
+				
+						> li > a {
+							margin: 0;
+							color: gray;
+							text-decoration: none;
+							// DIN Eng custom font
+							@include font-dineng();
+							font-size: 26px; }
+					
+							> li > a:hover { }
+					
+				}
+						
+		/**
+		 * Main Content Area - is located as page templates/layouts in partials
+		 ************************************************/
+		#content-container {
+			margin-top: 37px;
+			width: 100%; }
+	
+		/**
+		 * Footer
+ 		 ************************************************/
+		#footer-container { 
+			margin: 20px 0;
+			clear: both; }
+
+			#subsidiary {}
+				#subsidiary .widget {}
+					#subsidiary .widget-inside {}
+						#subsidiary .widget-title {}
+
+			#footer {
+				width: 100%; 
+				@include clearfix(); }
+
+				#footer .fb-like {
+					height: 30px;
+					margin: 0 10px 0 0;
+					float: left; }
+
+				/* Footer extra */
+				#footer .meta {
+					height: 26px;
+					padding-top: 4px;
+					float: left;
+					font-size: $typography-size-normal; }
+
+				#footer .quicklinks {
+					height: 30px;
+					float: right; }
+
+				#footer .quicklinks ul {
+					list-style-type: none;
+					padding: 4px;
+					margin: 0; }
+			
+					#footer .quicklinks li {
+						margin-right: 10px;
+						float: left; }
+
+						#footer .quicklinks li a {
+							margin-right: 10px; }
+		
+				#footer .cards {
+					height: 30px;
+					float: right; }
