@@ -1,0 +1,76 @@
+/**
+ * Core
+ * Main stylesheet for setting up variables (typography, colors), blueprint and global mixins
+ */
+
+/**
+* Settings
+************************************************/
+
+// Layout
+$grid-columns: 24;
+$grid-totalwidth: 960px;
+$grid-columnwidth: $grid-totalwidth / $grid-columns;
+$grid-margin: 10px;
+$grid-spacing: 40px;
+$grid-spacing-small: 18px;
+$grid-spacing-large: $grid-spacing + ($grid-spacing / 2);
+
+// Color
+$color-primary: #000; 		// Black
+$color-primary-b: #535353; 	// Dark Grey
+$color-primary-c: #bebbb6; 	// Light Grey
+$color-secondary: #fff;		// White
+$color-tertiary: #fff;		// White
+$color-font: $color-primary;
+$color-link: $color-primary;
+
+@font-face {
+    font-family: 'DIN 1451 Std Engschrift';
+    src: url('../misc/dinengschriftstd-webfont.eot');
+    src: url('../misc/dinengschriftstd-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../misc/dinengschriftstd-webfont.woff') format('woff'),
+         url('../misc/dinengschriftstd-webfont.ttf') format('truetype'),
+         url('../misc/dinengschriftstd-webfont.svg#DIN1451StdEngschrift') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+$typography-family-primary: Arial, Helvetica, sans-serif;
+$typography-size-header: 16px;
+$typography-size-subheader: 14px;
+$typography-size-normal: 11px;
+
+/**
+* Blueprint Setup
+************************************************/
+
+// Grid
+$blueprint-grid-columns: $grid-columns;
+$blueprint-container-size: $grid-totalwidth - $grid-margin;
+$blueprint-grid-margin: $grid-margin;
+$blueprint-grid-width: ($blueprint-container-size + $blueprint-grid-margin) / $blueprint-grid-columns - $blueprint-grid-margin; 
+
+// Colors 
+$link-color: $color-link;
+$link-hover-color: $color-link;
+$link-focus-color: $color-link;
+$link-active-color: $color-link;
+$link-visited-color: $color-link;
+@import "blueprint/colors";
+
+// Fonts
+$blueprint-font-family: $typography-family-primary;
+$blueprint-font-size: $typography-size-normal;
+@import "blueprint/typography";
+
+/**
+* Custom mixins and vars
+************************************************/
+
+// Used for elements that should be styled with DIN Eng font
+@mixin font-dineng() {
+	font-family: "DIN 1451 Std Engschrift", arial, sans-serif;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: normal;
+	line-height: 1; }

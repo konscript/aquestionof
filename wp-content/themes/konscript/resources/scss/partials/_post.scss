@@ -1,0 +1,59 @@
+/**
+ * Post
+ * Default styling for pages and posts, singular
+ */
+#content {}
+	
+	.entry-wrapper {
+	
+		.entry-image {
+			@include column(12);
+			overflow: hidden;
+			margin-bottom: 15px; }
+			
+		.entry-content {
+			@include column(12, true); }
+			
+		.entry-header {
+			background-color: #000;				
+			height: 30px;
+			margin-bottom: 15px; 
+		
+			h1 {
+				padding: 0 6px;
+				color: #fff;
+				// DIN Eng custom font
+				@include font-dineng();
+				font-size: 20px;
+				line-height: 30px; }
+		
+			}
+						
+		.related-post-container {
+			float: left; }
+		
+			.related-post-title {
+				@include column(6);
+				float: left;
+				clear: both;
+				margin-bottom: 15px;				
+				// DIN Eng custom font
+				@include font-dineng();
+				font-size: 26px; }
+								
+			.related-post {
+				@include column(6);
+				float: left;
+				clear: left; }		
+				
+			.related-product {	
+				@include column(6, true);
+				float: left; }
+			
+			.related-product a {
+				display: block;
+				width: 120px;
+				height: 160px;
+				margin: 0 auto;
+			}			
+	}
