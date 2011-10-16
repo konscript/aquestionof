@@ -1,0 +1,171 @@
+/**
+ * Shop
+ * Styling for product pages in WPEC (single product page and checkout)
+ */
+.single_product_display {
+
+	.related-post-title {
+		@include column(6);
+		margin-top: 160px;			
+		float: right;
+		margin-bottom: 15px;				
+		// DIN Eng custom font
+		@include font-dineng();
+		font-size: 26px;
+		margin-left: $grid-margin * 2; }
+						
+	.related-post {
+		@include column(6);
+		float: right;
+		clear: right;
+		margin-left: $grid-margin * 2; }
+	
+	.related-product {
+		@include column(6);		
+		float: right;
+		clear: right;
+		margin-left: $grid-columnwidth;}
+
+}
+
+/* WPEC Fancy Notifications styling */
+#fancy_notification{
+	display: none;
+	height: auto; }
+						
+#nivo_product_images {
+    position: relative;
+	width: 470px;
+	height: 760px;
+	background: url('../images/loader.gif') no-repeat 50% 50%; }
+	 		 
+	#nivo_product_images .nivo-slice {
+		width: 470px;
+		height: 730px;
+		background-color: #fff; }	
+
+	.nivo-directionNav {
+	    position: absolute;
+	    height: 30px;	
+	    bottom: 0;
+	    width: 100%;
+	    background-color: #000; }
+	    
+	    .nivo-directionNav a {
+		    border: 0;
+			cursor: pointer;
+			padding: 5px;
+			color: #fff;
+			width: 15px;
+			height: 15px;				    
+		    margin-right: 0px;
+		    text-align: center;
+		    text-decoration: none; }
+		    
+		.nivo-directionNav a:hover {
+			color: grey; }				    
+	    
+	    .nivo-directionNav a.nivo-prevNav {
+		    display: block;
+	    	float: left; }
+
+	    .nivo-directionNav a.nivo-nextNav {
+		    display: block;
+	    	float: right; }
+
+.FB_like {
+	@include column(6);
+	position: relative;
+	float: left;
+	margin-top: 20px;
+	overflow: hidden; }
+
+.product_form {
+	@include column(6);
+	float: left; }
+	
+.wpsc_product_price {
+	font-size: 18px;
+	font-weight: bold; }
+	
+	.wpsc_product_price .pricedisplay {
+		margin: 5px 0; }
+
+.wpsc_buy_button_container {
+	float: left;
+	clear: both;
+	width: 100%; }
+	
+	.wpsc_buy_button_container input.wpsc_buy_button {
+		cursor: pointer;
+		float: left;
+		height: 60px;
+		padding: 0 10px;
+		width: 100%;
+		color: #000;
+		border: 0;
+		margin-right: $grid-margin;
+		// DIN Eng custom font
+		@include font-dineng();
+		font-size: 20px;
+		line-height: 60px; }
+
+	.wpsc_loading_animation {
+		display: none; }
+	
+.wpsc_product-footer-notifications {
+	float: left; }		
+
+.wpsc_variation_forms {
+	float: left;
+	clear: both;
+	width: 100%; }
+	
+	.wpsc_variation_forms table {
+		margin: 10px 0; }
+	
+	.wpsc_variation_forms table tr td {
+		padding: 0; }
+
+	.wpsc_variation_forms table tr {
+		height: 30px; }
+
+	.wpsc_variation_forms table tr td.col1 {
+		padding: 7px 7px 7px 0px; }
+
+	.wpsc_variation_forms table tr td.col2 {}
+	
+		.wpsc_select_variation {
+			width: 130px; }
+	
+.product_description {
+	padding-left: $grid-margin;
+	margin-left: $grid-columnwidth * 6;
+	
+	p iframe { // seeks to match all embedded videos and move them left
+		margin-left: - ($grid-columnwidth * 6 + $grid-margin); }
+	}
+	
+tr.wpsc_cart_seperatorrow td {
+	padding: 0;
+	height: 3px;
+	background-color: #000; }
+
+form.wpsc_checkout_forms textarea {
+	height: auto; }
+
+form.wpsc_checkout_forms .asterix,
+.wpsc_coupon_error_row,
+.validation-error {
+	color: red; }		
+	
+.wpsc_product_quantity form input[type="text"] {
+	width: 18px;
+}
+.coupon_code form input[type="text"] {
+	width: 80px;
+}
+
+form.qty {
+	min-width: 100px;
+}
