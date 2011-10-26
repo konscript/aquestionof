@@ -68,7 +68,11 @@ function gridInit($type) {
 	
 	// Shuffle all items and merge them with the featured
 	shuffle($items);
-	$itemsOut = array_merge($itemsFeatured, $items);
+	if (is_array($itemsFeatured)) {
+		$itemsOut = array_merge($itemsFeatured, $items);
+	} else {
+		$itemsOut = $items;
+	}
 	
 	// Output all the items to the DOM
 	if (!empty($itemsOut)) {	
