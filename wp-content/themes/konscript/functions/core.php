@@ -156,10 +156,19 @@ function customColors() {
 
 // For WPEC products: will provide a correct product image for the FB likes
 function metaOpenGraph() {
+	global $wp_query;
+	$id = $wp_query->get_queried_object_id();	
+	echo "<meta property='og:title' content='" . get_the_title( $id ) . "' />";
+	echo "<meta property='fb:admins' content='526410768,1060831121' />";
+	if ( is_singular() ) {
+		echo "<meta property='og:url' content='" . get_permalink( $id ) . "' />";	
+		echo "<meta property='og:type' content='article' />";	
+	}
+	if ( is_front_page() && is_home() ) {
+		echo "<meta property='og:url' content='" . get_bloginfo( 'siteurl' ) . "' />";			
+	}
 	if ( wpsc_the_product_thumbnail() ) {
 		echo "<meta property='og:image' content='" . wpsc_the_product_thumbnail(get_option('product_image_width'),get_option('product_image_height'),'','single') . "' />";	
-		echo "<meta property='og:type' content='product' />";
-		echo "<meta property='fb:admins' content='526410768,1060831121' />";
 	}
 }
 
