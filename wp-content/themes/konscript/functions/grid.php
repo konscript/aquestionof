@@ -10,13 +10,15 @@ function gridInit($type){
 	$filemtime = @filemtime($cache_file);  // returns FALSE if file does not exist
 	$cache_expired = (time() - $filemtime >= $cache_life);
 	
-	echo "vars:";
-	echo $cache_file."<br>";
-	echo $cache_life."<br>";	
-	echo $filemtime."<br>";	
-	var_dump($cache_expired);
-	var_dump(is_user_logged_in());
-			
+	if($_GET["cache_debug"]){
+		echo "cache debug:";
+		echo $cache_file."<br>";
+		echo $cache_life."<br>";	
+		echo $filemtime."<br>";	
+		var_dump($cache_expired);
+		var_dump(is_user_logged_in());
+	}
+		
 	// rebuild grid cache
 	if (!$filemtime || $cache_expired || is_user_logged_in()){
 		echo"<!-- rebuilding cache -->";
