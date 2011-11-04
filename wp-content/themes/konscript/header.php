@@ -59,9 +59,9 @@
 				)); ?>
 				
 			<div class="master-social">
-				<a href="https://twitter.com/#!/a_question_of"><img src="<?php echo THEME_URI . '/resources/images/social/twitter_box.png'; ?>" alt="Twitter" /></a>
-				<a href="http://consciousapparel.tumblr.com"><img src="<?php echo THEME_URI . '/resources/images/social/tumblr_box.png'; ?>" alt="Tumblr" /></a>								
-				<a href="https://www.facebook.com/AQUESTIONOF"><img src="<?php echo THEME_URI . '/resources/images/social/facebook_box.png'; ?>" alt="Facebook" /></a>
+				<a href="https://twitter.com/#!/a_question_of" target="_blank"><img src="<?php echo THEME_URI . '/resources/images/social/twitter_box.png'; ?>" alt="Twitter" /></a>
+				<a href="http://consciousapparel.tumblr.com" target="_blank"><img src="<?php echo THEME_URI . '/resources/images/social/tumblr_box.png'; ?>" alt="Tumblr" /></a>								
+				<a href="https://www.facebook.com/AQUESTIONOF" target="_blank"><img src="<?php echo THEME_URI . '/resources/images/social/facebook_box.png'; ?>" alt="Facebook" /></a>
 			</div>				
 				
 		</div>
