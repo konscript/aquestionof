@@ -23,3 +23,5 @@ wp-content/plugins/*
 wp-content/themes/*
 !wp-content/themes/konscript/
 
+# ignore grid cache file
+wp-content/themes/konscript/gridCache_*
