@@ -22,3 +22,6 @@ wp-content/plugins/*
 # Ignore everything in the "themes" directory, except the themes you specify ("konscript" as default)
 wp-content/themes/*
 !wp-content/themes/konscript/
+
+# ignore grid cache file
+wp-content/themes/konscript/gridCache_*

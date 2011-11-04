@@ -11,6 +11,8 @@
 		
 			<div id="footer">
 				
+				<?php //echo 'Number of queries: '.get_num_queries(); ?>
+				
 				<div class="cards">
 					<img src="<?php echo CHILD_THEME_URI . '/resources/images/cards/paypal.gif'; ?>" alt="Paypal" title="Paypal" />
 					<img src="<?php echo CHILD_THEME_URI . '/resources/images/cards/visa.gif'; ?>" alt="Visa Card" title="Visa Card" />

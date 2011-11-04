@@ -40,7 +40,7 @@
 	
 	<div id="masterbar-container" class="custom-color-1">
 		<div id="masterbar">
-		
+				
 			<div class="master-shoppingbag">
 				<?php 
 					$show_bag = false;
@@ -57,6 +57,13 @@
 				'menu_id' 		=> 'masterbar-menu',								
 				'link_before' 	=> ''
 				)); ?>
+				
+			<div class="master-social">
+				<a href="https://twitter.com/#!/a_question_of"><img src="<?php echo THEME_URI . '/resources/images/social/twitter_box.png'; ?>" alt="Twitter" /></a>
+				<a href="http://consciousapparel.tumblr.com"><img src="<?php echo THEME_URI . '/resources/images/social/tumblr_box.png'; ?>" alt="Tumblr" /></a>								
+				<a href="https://www.facebook.com/AQUESTIONOF"><img src="<?php echo THEME_URI . '/resources/images/social/facebook_box.png'; ?>" alt="Facebook" /></a>
+			</div>				
+				
 		</div>
 	</div>
 	

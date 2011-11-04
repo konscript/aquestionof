@@ -74,6 +74,16 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 				
 			}			
 
+			#masterbar .master-social {
+				float: right;
+				margin-right: $grid-margin;
+				padding-top: 5px;
+				
+				a img {
+					margin-left: 5px;
+					height: 20px; }
+			}
+
 			#masterbar .master-shoppingbag {
 				float: right;
 				margin-right: $grid-margin;

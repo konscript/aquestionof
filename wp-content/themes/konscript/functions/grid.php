@@ -1,10 +1,45 @@
 <?php
 
 /**
- * gridInit
+ * will rebuild cache every half hour, and if user is logged in
+ */
+function gridInit($type){
+
+	$cache_file = TEMPLATEPATH.'/gridCache_'.$type;
+	$cache_life = '1800'; //caching time, in seconds
+	$filemtime = @filemtime($cache_file);  // returns FALSE if file does not exist
+	$cache_expired = (time() - $filemtime >= $cache_life);
+	
+	if($_GET["cache_debug"]){
+		echo "cache debug:";
+		echo $cache_file."<br>";
+		echo $cache_life."<br>";	
+		echo $filemtime."<br>";	
+		var_dump($cache_expired);
+		var_dump(is_user_logged_in());
+	}
+		
+	// rebuild grid cache
+	if (!$filemtime || $cache_expired || is_user_logged_in()){
+		echo"<!-- rebuilding cache -->";
+		createGridCache($type);
+	}
+	
+	// load grid from cache
+	$serialized_array = file_get_contents($cache_file);
+	$itemsOut = unserialize($serialized_array);
+	
+	// output grid
+	foreach ($itemsOut as $itemOut) {
+		echo $itemOut;
+	}	
+}
+
+/**
+ * createGridCache
  * Main function, call to require and echo the grid
  */
-function gridInit($type) {
+function createGridCache($type) {
 	
 	// Setup vars
 	global $post;
@@ -76,9 +111,10 @@ function gridInit($type) {
 	
 	// Output all the items to the DOM
 	if (!empty($itemsOut)) {	
-		foreach ($itemsOut as $itemOut) {
-			echo $itemOut;
-		}
+	
+		$filename = TEMPLATEPATH.'/gridCache_'.$type;
+		$serialized_array = serialize($itemsOut);
+		file_put_contents($filename, $serialized_array);
 	}	
 }
 
