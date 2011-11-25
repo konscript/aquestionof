@@ -211,7 +211,7 @@ jQuery.noConflict();
 				setHash('all');
 			
 			// Page is ready for masonry
-			} else {			
+			} else {	
 				prepareMasonry();
 			}
 			
@@ -293,33 +293,29 @@ jQuery.noConflict();
 				counterRemoved++;
 				// Append new items and do masonry
 				if ($elmToBeRemoved.length == counterRemoved) {
-					$(gridContainer).prepend($newElm);				
-					sortMasonry($newElm);								
-					fadeInElm($(gridElementSpecific));
+					$(gridContainer).prepend($newElm);
+					sortMasonry();																		
 				}
 			});
 			
 		// No elements to remove (e.g. going from subcat to topcat)
 		} else {
 			// Append new items and do masonry	
-			$(gridContainer).prepend($newElm);		
-			sortMasonry($newElm);
-			fadeInElm($(gridElementSpecific));	
+			$(gridContainer).prepend($newElm);
+			sortMasonry();																		
 		}
 	}
 	
-	// Fades in elements and removes the loader icon when done
-	function fadeInElm($elm){
-		var counterElm = 0;
-		$elm.fadeIn("slow", function() {
-			counterElm++;		
-			if ($elm.length == counterElm) {
-				$(loadingIcon).fadeOut("fast");
-				elmBusy = false;
-			}			
+	function loadImages(){
+		$(gridElementSpecific).each(function(){
+			var img = $(this).find('a img');
+			if ($(img).attr('rel')) {
+				newSrc = $(img).first().attr('rel');
+				$(img).first().attr('src', newSrc).removeAttr('rel');
+			}
 		});
 	}
-	
+		
 	function sortMasonry($elements) {
 		
 		$("#grid > div").tsort({attr:'rel', order:'desc'});	
@@ -365,6 +361,20 @@ jQuery.noConflict();
 		// show the grid container again when masonry has been run
 		$(gridContainer).css('opacity', 1);
 
+		loadImages();
+		fadeInElm($(gridElementSpecific));	
+	}
+	
+	// Fades in elements and removes the loader icon when done
+	function fadeInElm($elm){
+		var counterElm = 0;
+		$elm.fadeIn("slow", function() {
+			counterElm++;		
+			if ($elm.length == counterElm) {
+				$(loadingIcon).fadeOut("fast");
+				elmBusy = false;
+			}			
+		});
 	}
 	
 	// Call to set a new route hash value

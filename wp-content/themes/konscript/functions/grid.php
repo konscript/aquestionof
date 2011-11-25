@@ -213,9 +213,11 @@ function processPostOutput($postId, $postType, $postTaxonomies, $postFields) {
 	
 	// Thumbnail
 	if ($postType == 'wpsc-product') {
-		$thumbnail = '<img src="' . wpsc_the_product_thumbnail(get_option('product_image_width', '', 'default'), get_option('product_image_height'), '', 'default') . '" />';
+		$thumbnail = wpsc_the_product_thumbnail(get_option('product_image_width', '', 'default'), get_option('product_image_height'), '', 'default');
 	} else {
-		$thumbnail = get_the_post_thumbnail( $postId, 'large' );
+		$post_thumbnail_id = get_post_thumbnail_id($postId);
+		$post_thumbnail_src = wp_get_attachment_image_src( $post_thumbnail_id, 'large');	
+		$thumbnail = $post_thumbnail_src[0];
 	}
 		
 	// Begin output
@@ -224,8 +226,8 @@ function processPostOutput($postId, $postType, $postTaxonomies, $postFields) {
 			$o .= get_the_content();
 		} else {
 			$o .= '<a href="' . $postFields['boxLink'] . '" alt="' . get_the_title() . '">';
-			$o .= $thumbnail;
-				$o .=  '<div class="meta">
+			$o .= '<img src="'. THEME_URI . '/resources/images/loader-image.gif' . '" alt="' . get_the_title() . '" rel="' . $thumbnail . '" />';
+			$o .=  '<div class="meta">
 							 <div class="' . $divId . '-title">
 								' . get_the_title() . '
 							 </div>';
