@@ -126,7 +126,7 @@ function createGridCache($type) {
 function postTaxonomies($postId) {
 	
 	// Define the terms to run through
-	$taxonomyList = array('category', 'priority','wpsc_product_category');
+	$taxonomyList = array('priority','category','wpsc_product_category');
 	$resultArray = array();
 	
 	// Run through the categories, the priority etc.
@@ -219,7 +219,7 @@ function processPostOutput($postId, $postType, $postTaxonomies, $postFields) {
 	}
 		
 	// Begin output
-	$o =  '<div id="' . $divId . '-' . $postId . '" class="box col' . $col . ' row' . $row . ' ' . $taxonomiesClass . '">';
+	$o =  '<div id="' . $divId . '-' . $postId . '" rel="' . get_the_time('ymd') . '" class="box col' . $col . ' row' . $row . ' ' . $taxonomiesClass . '">';
 		if (array_search('priority-video', $postTaxonomies) != false) { 
 			$o .= get_the_content();
 		} else {

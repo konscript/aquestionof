@@ -59,6 +59,8 @@ function register_resources() {
 		wp_enqueue_script( 'jquery_masonry' );
 		wp_register_script( 'jquery_nivo_slider_pack', THEME_URI . '/resources/js/jquery.nivo.slider.pack.js', array('jquery'), false, true);
 		wp_enqueue_script( 'jquery_nivo_slider_pack' );
+		wp_register_script( 'jquery_tinysort', THEME_URI . '/resources/js/jquery.tinysort.min.js', array('jquery'), false, true);
+		wp_enqueue_script( 'jquery_tinysort' );
 	
 		// Main screen javascript
 		wp_register_script( 'screen', THEME_URI . '/resources/js/screen.js', array('jquery'));
