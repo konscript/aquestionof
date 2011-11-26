@@ -222,7 +222,7 @@ function processPostOutput($postId, $postType, $postTaxonomies, $postFields) {
 		
 	// Begin output
 	$o =  '<div id="' . $divId . '-' . $postId . '" rel="' . get_the_time('ymd') . '" class="box col' . $col . ' row' . $row . ' ' . $taxonomiesClass . '">';
-		if (array_search('priority-video', $postTaxonomies) != false) { 
+		if (in_array('priority-video', $postTaxonomies)) { 
 			$o .= get_the_content();
 		} else {
 			$o .= '<a href="' . $postFields['boxLink'] . '" alt="' . get_the_title() . '">';

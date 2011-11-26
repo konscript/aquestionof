@@ -103,6 +103,7 @@ jQuery.noConflict();
 	 * Make WPEC product pages feature a image gallery based on Nivo jQuery plugin
 	 */
 	function nivoProductImages() {
+/*
 		$(window).load(function() {
 			var total = $('#nivo_product_images img').length;
 			var rand = Math.floor(Math.random()*total);
@@ -122,6 +123,7 @@ jQuery.noConflict();
     	    	nextText: '>', // Next directionNav text
 			});
 		});	
+*/
 	}
 	
 	
@@ -308,10 +310,10 @@ jQuery.noConflict();
 	
 	function loadImages(){
 		$(gridElementSpecific).each(function(){
-			var img = $(this).find('a img');
-			if ($(img).attr('rel')) {
-				newSrc = $(img).first().attr('rel');
-				$(img).first().attr('src', newSrc).removeAttr('rel');
+			var $img = $(this).find('a img');
+			if ($img.attr('rel')) {
+				newSrc = $img.first().attr('rel');
+				$img.first().attr('src', newSrc).removeAttr('rel');
 			}
 		});
 	}

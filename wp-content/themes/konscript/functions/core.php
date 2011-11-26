@@ -35,10 +35,10 @@ function custom_theme_setup() {
 add_action('init', 'register_resources');
 function register_resources() {
 
-    global $compress_scripts, $concatenate_scripts;
-    $compress_scripts = 1;
-    $concatenate_scripts = 1;
-    define('ENFORCE_GZIP', true);
+	global $compress_scripts, $concatenate_scripts;
+	$compress_scripts = 1;
+	$concatenate_scripts = 1;
+	define('ENFORCE_GZIP', true);
 	define('COMPRESS_CSS', true);
 
 	if( !is_admin()){
