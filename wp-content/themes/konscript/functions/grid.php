@@ -3,7 +3,7 @@
 add_action('save_post', 'eventGridCache');
 function eventGridCache() {
 	echo"<!-- rebuilding cache (save-trigger) -->";
-	createGridCache($type);	
+	createGridCache('all');	
 }
 
 /**
