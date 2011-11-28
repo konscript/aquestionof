@@ -1,12 +1,18 @@
 <?php
 
+add_action('save_post', 'eventGridCache');
+function eventGridCache() {
+	echo"<!-- rebuilding cache (save-trigger) -->";
+	createGridCache($type);	
+}
+
 /**
  * will rebuild cache every half hour, and if user is logged in
  */
 function gridInit($type){
 
 	$cache_file = TEMPLATEPATH.'/gridCache_'.$type;
-	$cache_life = '1800'; //caching time, in seconds
+	$cache_life = '3600'; //caching time, in seconds
 	$filemtime = @filemtime($cache_file);  // returns FALSE if file does not exist
 	$cache_expired = (time() - $filemtime >= $cache_life);
 	
@@ -20,8 +26,8 @@ function gridInit($type){
 	}
 		
 	// rebuild grid cache
-	if (!$filemtime || $cache_expired || is_user_logged_in()){
-		echo"<!-- rebuilding cache -->";
+	if (!$filemtime || $cache_expired){
+		echo"<!-- rebuilding cache (expired) -->";
 		createGridCache($type);
 	}
 	
@@ -58,7 +64,6 @@ function createGridCache($type) {
 
 	// Get all posts from WP and loop through each post/product
 	if ( have_posts() ) : while ( have_posts() ) : the_post();
-		
 		// Save meta values and references
 		$postId = $post->ID;
 		$postType = $post->post_type;
@@ -226,7 +231,9 @@ function processPostOutput($postId, $postType, $postTaxonomies, $postFields) {
 			$o .= get_the_content();
 		} else {
 			$o .= '<a href="' . $postFields['boxLink'] . '" alt="' . get_the_title() . '">';
-			$o .= '<img src="'. THEME_URI . '/resources/images/loader-image.gif' . '" alt="' . get_the_title() . '" rel="' . $thumbnail . '" />';
+			$o .= '<img src="'. THEME_URI .'/resources/images/loader-image.gif'.'" alt="'. get_the_title() .'" data-original="' . $thumbnail . '" />';
+			$o .= '<noscript><img src="'.$thumbnail.'" alt="'. get_the_title() .'" /></noscript>';
+			
 			$o .=  '<div class="meta">
 							 <div class="' . $divId . '-title">
 								' . get_the_title() . '

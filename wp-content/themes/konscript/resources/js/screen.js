@@ -5,18 +5,17 @@ jQuery.noConflict();
 	var base = $("base").attr("href");
 	
 	// To be run when DOM is loaded. Initializes all effects and behaviours
+	//$(window).load(function() {	
 	$(document).ready(function() {
-		
 		// Masonry Grid effect
 		initMasonryEffect();
 		
 		// Global stuff
 		primaryMenuEvents();
-		//applyCufon();	
 		masterbarLinkHoverEvent();
 		
 		// Specific	stuff
-		nivoProductImages();
+		//nivoProductImages();
 		addToCartEvent();		
 		emailFormFocusClear();
 	
@@ -77,8 +76,7 @@ jQuery.noConflict();
 		$("#masterbar a").hover(
 			function () {
 				bounceEffect(this);			
-			}, function () {}
-		);
+			}, function () {});
 	}
 	
 	/**
@@ -103,7 +101,7 @@ jQuery.noConflict();
 	 * Make WPEC product pages feature a image gallery based on Nivo jQuery plugin
 	 */
 	function nivoProductImages() {
-/*
+
 		$(window).load(function() {
 			var total = $('#nivo_product_images img').length;
 			var rand = Math.floor(Math.random()*total);
@@ -123,7 +121,7 @@ jQuery.noConflict();
     	    	nextText: '>', // Next directionNav text
 			});
 		});	
-*/
+
 	}
 	
 	
@@ -163,20 +161,6 @@ jQuery.noConflict();
 		}	
 	
 	}
-			
-	/**
-	 * Will apply custom font with cufon for supplied texts
-	 * DEPRECATED, Cufon is not used anymore, all font-face solution
-	 */
-	function applyCufon() {
-	    if(isFontFaceSupported() != true) {
-			Cufon.replace('#primary-menu li a');
-			Cufon.replace('#masterbar-menu li a');
-			Cufon.replace('.master-shoppingbag a');
-			Cufon.replace('.entry-content h1');
-			Cufon.replace('.entry-content .related-post-title');
-	    }
-	}
 	
 	/**
 	 * ------------------------------------------------------
@@ -192,6 +176,7 @@ jQuery.noConflict();
 	var loadingIcon = "#loader";
 	var gridColumnWidth = 40;
 	var elmBusy = false;
+	var gridFirstTime = true;
 	
 	// To be run first!!! Will initiate the effect and keep track of changes etc.
 	function initMasonryEffect() {
@@ -293,53 +278,43 @@ jQuery.noConflict();
 			$elmToBeRemoved.fadeOut("slow", function() {
 				$(this).remove();
 				counterRemoved++;
-				// Append new items and do masonry
 				if ($elmToBeRemoved.length == counterRemoved) {
-					$(gridContainer).prepend($newElm);
-					sortMasonry();																		
+					bootstrapMasonry($newElm);																		
 				}
 			});
 			
 		// No elements to remove (e.g. going from subcat to topcat)
 		} else {
-			// Append new items and do masonry	
-			$(gridContainer).prepend($newElm);
-			sortMasonry();																		
+			bootstrapMasonry($newElm);																		
 		}
 	}
-	
-	function loadImages(){
-		$(gridElementSpecific).each(function(){
-			var $img = $(this).find('a img');
-			if ($img.attr('rel')) {
-				newSrc = $img.first().attr('rel');
-				$img.first().attr('src', newSrc).removeAttr('rel');
-			}
-		});
-	}
 		
-	function sortMasonry($elements) {
+	function bootstrapMasonry($newElm) {
 		
-		$("#grid > div").tsort({attr:'rel', order:'desc'});	
-/*
-		var $previousElm = $("#grid > div:first");
-		$("#grid > div.priority-featured").each(function(){
-			var t = $(this);
-			$previousElm.insertBefore(t);
-			console.log(t);
-		});
-			
-		$("#grid > div.priority-featured").tsort({attr:'rel', order:'desc'});	
-				
-		$("#grid > div").tsort('',{attr:'rel', order:'desc',sortFunction:function(a,b){
-			return a.e.hasClass('priority-featured') < b.e.hasClass('priority-featured') ? 1 : 0;
-			var iCalcA = parseInt(a.s)%16;
-			var iCalcB = parseInt(b.s)%16;
-			return iCalcA === iCalcB ? 0 : (iCalcA > iCalcB ? 1 : -1);
-		}});	
-*/	
+		// Append new items and do masonry	
+		$(gridContainer).prepend($newElm);
+		
+		if (gridFirstTime) {
+			loadImages($(gridElementSpecific));
+		} else {
+			loadImages($newElm);
+		}
+		
+		$(gridElementSpecific).tsort({attr:'rel', order:'desc'});	
+		
 		doMasonry();
 	}
+	
+	function loadImages($elements){
+//	$("#grid div.box a img").lazyload({ threshold : 1, failurelimit : 1, effect : "fadeIn" });
+		$elements.each(function(){
+			var $img = $(this).find('a img');
+			if ($img.attr('data-original')) {
+				$img.first().attr('src', $img.first().attr('data-original')).removeAttr('data-original');
+			}
+		});
+
+	}	
 	
 	// Do masonry effect
 	function doMasonry() {	
@@ -363,7 +338,6 @@ jQuery.noConflict();
 		// show the grid container again when masonry has been run
 		$(gridContainer).css('opacity', 1);
 
-		loadImages();
 		fadeInElm($(gridElementSpecific));	
 	}
 	
@@ -373,6 +347,7 @@ jQuery.noConflict();
 		$elm.fadeIn("slow", function() {
 			counterElm++;		
 			if ($elm.length == counterElm) {
+//				$elm.show();
 				$(loadingIcon).fadeOut("fast");
 				elmBusy = false;
 			}			
@@ -436,71 +411,5 @@ jQuery.noConflict();
 			return false;
 		}
 	}
-
-	/**
-	 * jQuery.fn.sortElements
-	 * --------------
-	 * @param Function comparator:
-	 *   Exactly the same behaviour as [1,2,3].sort(comparator)
-	 *   
-	 * @param Function getSortable
-	 *   A function that should return the element that is
-	 *   to be sorted. The comparator will run on the
-	 *   current collection, but you may want the actual
-	 *   resulting sort to occur on a parent or another
-	 *   associated element.
-	 *   
-	 *   E.g. $('td').sortElements(comparator, function(){
-	 *      return this.parentNode; 
-	 *   })
-	 *   
-	 *   The <td>'s parent (<tr>) will be sorted instead
-	 *   of the <td> itself.
-	 */
-	jQuery.fn.sortElements = (function(){
-
-	    var sort = [].sort;
-
-	    return function(comparator, getSortable) {
-
-	        getSortable = getSortable || function(){return this;};
-
-	        var placements = this.map(function(){
-
-	            var sortElement = getSortable.call(this),
-	                parentNode = sortElement.parentNode,
-
-	                // Since the element itself will change position, we have
-	                // to have some way of storing its original position in
-	                // the DOM. The easiest way is to have a 'flag' node:
-	                nextSibling = parentNode.insertBefore(
-	                    document.createTextNode(''),
-	                    sortElement.nextSibling
-	                );
-
-	            return function() {
-
-	                if (parentNode === this) {
-	                    throw new Error(
-	                        "You can't sort elements if any one is a descendant of another."
-	                    );
-	                }
-
-	                // Insert before flag:
-	                parentNode.insertBefore(this, nextSibling);
-	                // Remove flag:
-	                parentNode.removeChild(nextSibling);
-
-	            };
-
-	        });
-
-	        return sort.call(this, comparator).each(function(i){
-	            placements[i].call(getSortable.call(this));
-	        });
-
-	    };
-
-	})();
 
 })(jQuery)

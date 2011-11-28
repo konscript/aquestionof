@@ -9,8 +9,8 @@ get_header(); ?>
 
 	<div id="content" class="hfeed content">	
 		
-		<div id="grid">				
-			<?php gridInit('all'); ?>				
+		<div id="grid">
+			<?php gridInit('all'); ?>
 		</div>				
 				
 	</div><!-- .content .hfeed -->
