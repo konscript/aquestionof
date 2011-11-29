@@ -49,7 +49,7 @@ function register_resources() {
 		// Fetch latest jQuery
     	wp_deregister_script( 'jquery' );
     	//wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js', array(), '1.6');
-			wp_register_script('jquery', (THEME_URI . '/resources/js/jquery-1.5.1.min.js'), false, '1.5.1'); 
+			wp_register_script('jquery', (THEME_URI . '/resources/js/jquery-1.7.1.min.js'), false, '1.7.1'); 
     	wp_enqueue_script( 'jquery' );
 	
 		// Javascript plugins
@@ -130,7 +130,7 @@ function nivo_get_images($product_id = null, $size = 'medium', $limit = '0', $of
 				$preview_array = image_downsize( $image->ID, $size );
 	 			$img_preview = $preview_array[0]; // thumbnail or medium image to use for preview.
 	 			?>
-					<img id="product_image_<?php echo $product_id . '_' . $i ; ?>" class="product_image" src="<?php echo $img_preview; ?>" alt="<?php echo $img_caption; ?>" />
+					<img id="product_image_<?php echo $product_id . '_' . $i ; ?>" class="product_image" src="<?php echo $img_preview; ?>" alt="<?php echo $img_caption; ?>" title="<?php echo $img_caption; ?>" />
 				<?
 				}
 			$i++;

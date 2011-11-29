@@ -32,7 +32,6 @@ jQuery.noConflict();
 		});
 	}
 	
-	
 	/**
 	 * When item is added to cart, it will show shopping bag with incremented count and bounce links
 	 */
@@ -103,25 +102,26 @@ jQuery.noConflict();
 	function nivoProductImages() {
 
 		$(window).load(function() {
+			//var rand = Math.floor(Math.random()*total);			
 			var total = $('#nivo_product_images img').length;
-			var rand = Math.floor(Math.random()*total);
-			$('#nivo_product_images').nivoSlider({
-				effect: 'fade', //Specify sets like: 'fold,fade,sliceDown'
-				animSpeed: 600, //Slide transition speed
-				pauseTime: 6000,
-				directionNav: true, //Next and Prev
-				controlNav: false, //1,2,3...
-				pauseOnHover: false, //Stop animation while hovering
-				captionOpacity: 0, //Universal caption opacity
-				startSlide: 0, //Set starting Slide (0 index)
-				directionNavHide: false,
-				keyboardNav: true,
-				manualAdvance: false,
-	    	    prevText: '<', // Prev directionNav text
-    	    	nextText: '>', // Next directionNav text
-			});
-		});	
-
+			if(total > 1) {
+				$('#nivo_product_images').nivoSlider({
+					effect: 'fade', //Specify sets like: 'fold,fade,sliceDown'
+					animSpeed: 600, //Slide transition speed
+					pauseTime: 6000,
+					directionNav: true, //Next and Prev
+					controlNav: false, //1,2,3...
+					pauseOnHover: false, //Stop animation while hovering
+					captionOpacity: 0, //Universal caption opacity
+					startSlide: 0, //Set starting Slide (0 index)
+					directionNavHide: false,
+					keyboardNav: true,
+					manualAdvance: false,
+					prevText: '‹', // Prev directionNav text
+					nextText: '›', // Next directionNav text
+				});
+			}	
+		});
 	}
 	
 	
