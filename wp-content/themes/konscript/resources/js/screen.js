@@ -15,7 +15,7 @@ jQuery.noConflict();
 		masterbarLinkHoverEvent();
 		
 		// Specific	stuff
-		//nivoProductImages();
+		nivoProductImages();
 		addToCartEvent();		
 		emailFormFocusClear();
 	
