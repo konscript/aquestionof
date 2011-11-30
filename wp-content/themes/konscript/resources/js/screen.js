@@ -198,7 +198,9 @@ jQuery.noConflict();
 				setHash('all');
 			
 			// Page is ready for masonry
-			} else {	
+			} else if (getHash() == 'shop') { 
+				setHash('category-shop');				
+			} else {
 				prepareMasonry();
 			}
 			
