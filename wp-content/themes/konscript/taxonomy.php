@@ -12,8 +12,8 @@ get_header(); ?>
 	<div id="content" class="hfeed content">	
 
 		<div id="grid">
-
-			<?php gridInit('category'); ?>
+			
+			<?php gridInit('category',single_cat_title( '', false )); ?>
 
 		</div>
 			

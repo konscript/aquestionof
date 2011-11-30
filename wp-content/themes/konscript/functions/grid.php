@@ -1,16 +1,31 @@
 <?php
 
-add_action('save_post', 'eventGridCache');
-function eventGridCache() {
-	createGridCache('all');	
+/**
+ * flush the cache and delete all persistent copies (rebuild next load)
+ */
+add_action('save_post', 'flushGridCache');
+function flushGridCache() {
+//	createGridCache('all');	
+	$dir = TEMPLATEPATH . '/cache';
+	$objects = scandir($dir); 
+	foreach ($objects as $object) { 
+		if ($object != "." && $object != ".." && $object != ".gitignore") { 
+			if (filetype($dir."/".$object) == "dir") {
+				// do nothing, shouldn't be there
+			} else {
+				unlink($dir."/".$object);
+			}
+	  } 
+	} 
+	reset($objects);
 }
 
 /**
  * will rebuild cache every half hour, and if user is logged in
  */
-function gridInit($type){
+function gridInit($type, $tax = 'All'){
 
-	$cache_file = TEMPLATEPATH.'/gridCache_'.$type;
+	$cache_file = TEMPLATEPATH.'/cache/gridCache_'.$type.'_'.$tax;
 	$cache_life = '3600'; //caching time, in seconds
 	$filemtime = @filemtime($cache_file);  // returns FALSE if file does not exist
 	$cache_expired = (time() - $filemtime >= $cache_life);
@@ -27,7 +42,8 @@ function gridInit($type){
 	// rebuild grid cache
 	if (!$filemtime || $cache_expired){
 		echo"<!-- rebuilding cache (expired) -->";
-		createGridCache($type);
+		flushGridCache();
+		createGridCache($type, $tax);
 	}
 	
 	// load grid from cache
@@ -44,7 +60,7 @@ function gridInit($type){
  * createGridCache
  * Main function, call to require and echo the grid
  */
-function createGridCache($type) {
+function createGridCache($type, $tax = 'All') {
 	
 	// Setup vars
 	global $post;
@@ -52,7 +68,7 @@ function createGridCache($type) {
 	$featured_items = array();
 	
 	// Only fetch posts if not limited to category fetch
-	if ($type == 'all') {	
+	if ($type == 'home') {	
 		$queryArgs = array(
 			'post_type' 		=> array('post','wpsc-product'),
 			'post_parent' 		=> 0,
@@ -80,7 +96,8 @@ function createGridCache($type) {
 		}
 
 	endwhile; endif;
-	
+
+/*	
 	if ($type == 'all') {	
 				
 		// Add Facebook like fanbox to items array
@@ -104,6 +121,7 @@ function createGridCache($type) {
 				<!--End mc_embed_signup-->
 			</div>' . "\n";
 	}	
+*/
 	
 	// Shuffle all items and merge them with the featured
 	shuffle($items);
@@ -116,7 +134,7 @@ function createGridCache($type) {
 	// Output all the items to the DOM
 	if (!empty($itemsOut)) {	
 	
-		$filename = TEMPLATEPATH.'/gridCache_'.$type;
+		$filename = TEMPLATEPATH.'/cache/gridCache_'.$type.'_'.$tax;
 		$serialized_array = serialize($itemsOut);
 		file_put_contents($filename, $serialized_array);
 	}	
@@ -230,9 +248,8 @@ function processPostOutput($postId, $postType, $postTaxonomies, $postFields) {
 			$o .= get_the_content();
 		} else {
 			$o .= '<a href="' . $postFields['boxLink'] . '" alt="' . get_the_title() . '">';
-			$o .= '<img src="'. THEME_URI .'/resources/images/loader-image.gif'.'" alt="'. get_the_title() .'" data-original="' . $thumbnail . '" />';
 			$o .= '<noscript><img src="'.$thumbnail.'" alt="'. get_the_title() .'" /></noscript>';
-			
+			$o .= '<img src="'. THEME_URI .'/resources/images/loader-image.gif'.'" alt="'. get_the_title() .'" data-original="' . $thumbnail . '" />';			
 			$o .=  '<div class="meta">
 							 <div class="' . $divId . '-title">
 								' . get_the_title() . '

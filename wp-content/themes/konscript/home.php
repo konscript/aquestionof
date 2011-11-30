@@ -10,7 +10,7 @@ get_header(); ?>
 	<div id="content" class="hfeed content">	
 		
 		<div id="grid">
-			<?php gridInit('all'); ?>
+			<?php gridInit('home'); ?>
 		</div>				
 				
 	</div><!-- .content .hfeed -->
