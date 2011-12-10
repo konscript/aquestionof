@@ -40,6 +40,12 @@ body.no-js #grid {
 				
 			.box .product-title {
 				max-width: 160px; }
+				
+			.priority-soldout .product-title,
+			.priority-soldout .product-price {
+				text-decoration: line-through;
+				color: #828282;
+			}
 			
 			.box .product-price {
 				position: relative;

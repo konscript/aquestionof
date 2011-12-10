@@ -96,32 +96,6 @@ function createGridCache($type, $tax = 'All') {
 		}
 
 	endwhile; endif;
-
-/*	
-	if ($type == 'all') {	
-				
-		// Add Facebook like fanbox to items array
-		$itemsFeatured[] = '
-				<div id="post-fbbox" class="box col12 row12 category-updates category-updates-social priority-featured priority-frontpage">
-					<a href="#">
-						<iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Faquestionof&amp;colorscheme=dark&amp;show_faces=true&amp;stream=true&amp;header=false&amp;width=468&amp;height=588" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:470px; height:590px;" allowTransparency="true"></iframe>					
-					</a>
-				</div>' . "\n";
-				
-		// Add Mailchimp newsletter signup form box
-		$items[] = '
-			<div id="post-mcbox" class="box col6 row4 category-updates category-updates-social priority-frontpage">
-				<!-- Begin MailChimp Signup Form -->
-				<div id="mc_embed_signup">
-					<form action="http://aquestionof.us1.list-manage.com/subscribe/post?u=4b158f023b1059770a5f4ff44&amp;id=b1ea1a5e55" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
-						<input type="text" value="Fill in e-mail" name="EMAIL" style="width: 100px">
-						<input type="submit" class="emailbutton" value="" name="subscribe" id="mce-embedded-subscribe">
-					</form>
-				</div>
-				<!--End mc_embed_signup-->
-			</div>' . "\n";
-	}	
-*/
 	
 	// Shuffle all items and merge them with the featured
 	shuffle($items);
@@ -148,7 +122,7 @@ function createGridCache($type, $tax = 'All') {
 function postTaxonomies($postId) {
 	
 	// Define the terms to run through
-	$taxonomyList = array('priority','category','wpsc_product_category');
+	$taxonomyList = array('category','priority','wpsc_product_category');
 	$resultArray = array();
 	
 	// Run through the categories, the priority etc.
@@ -156,6 +130,13 @@ function postTaxonomies($postId) {
 		$taxonomyTerms = get_the_terms($postId, $taxonomy);
 		// If the post/product has any selected items in the term, run through each item		
 		if(!empty($taxonomyTerms)){
+			// Condition for products in WPEC, adds a default shop category to the product
+			if ($taxonomy == 'wpsc_product_category') {
+				if (!wpsc_product_has_stock()) {
+					$resultArray[] = 'priority-soldout';
+				}
+				$resultArray[] = 'category-shop';
+			}			
 			foreach($taxonomyTerms as $term) {
 				// If the current item has a parent (e.g. category), then fetch that and prepare for prefix
 				if ($term->parent != 0) {
@@ -169,12 +150,11 @@ function postTaxonomies($postId) {
 				if ($taxonomy == 'wpsc_product_category') {
 					$taxonomyOut = 'shop';
 				}
+				if ($term->slug == 'sale') {
+					array_splice($resultArray, array_search('category-shop', $resultArray), 1);
+				}			
 				// Add the entry to the resulting array in the current format: "category-concept-sustainability"
 				$resultArray[] = $taxonomyOut . "-" . $termParentAdd . $term->slug;
-			}
-			// Condition for products in WPEC, adds a default shop category to the product
-			if ($taxonomy == 'wpsc_product_category') {
-				$resultArray[] = 'category-shop';
 			}
 		}
 	}
