@@ -6,6 +6,7 @@
 add_action('save_post', 'flushGridCache');
 function flushGridCache() {
 //	createGridCache('all');	
+/*
 	$dir = TEMPLATEPATH . '/cache';
 	$objects = scandir($dir); 
 	foreach ($objects as $object) { 
@@ -18,6 +19,7 @@ function flushGridCache() {
 	  } 
 	} 
 	reset($objects);
+*/
 }
 
 /**
@@ -75,7 +77,7 @@ function createGridCache($type, $tax = 'All') {
 			'posts_per_page' 	=> 9999
 		);
 		query_posts($queryArgs);
-	}
+	} 
 
 	// Get all posts from WP and loop through each post/product
 	if ( have_posts() ) : while ( have_posts() ) : the_post();
@@ -132,9 +134,6 @@ function postTaxonomies($postId) {
 		if(!empty($taxonomyTerms)){
 			// Condition for products in WPEC, adds a default shop category to the product
 			if ($taxonomy == 'wpsc_product_category') {
-				if (!wpsc_product_has_stock()) {
-					$resultArray[] = 'priority-soldout';
-				}
 				$resultArray[] = 'category-shop';
 			}			
 			foreach($taxonomyTerms as $term) {
