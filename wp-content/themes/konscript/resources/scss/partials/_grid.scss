@@ -34,7 +34,7 @@ body.no-js #grid {
 			.box .product-title {
 				position: relative;
 				float: left;
-				margin: 7px 7px 7px 10px;
+				padding: 7px 7px 7px 10px;
 				overflow: hidden;
 				white-space: nowrap; }
 				
@@ -50,10 +50,10 @@ body.no-js #grid {
 			.box .product-price {
 				position: relative;
 				float: right;
-				margin: 7px 10px 7px 7px;
+				padding: 7px 10px 7px 7px;
 				background-color: #000;
 				z-index: 30; }
-
+				
 		.box a {
 			color: black;
 			text-decoration: none;
