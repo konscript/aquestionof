@@ -145,7 +145,8 @@ function customColors() {
 
 			.custom-color-1,
 			div.custom-color-1,
-			.wpsc_buy_button_container input.wpsc_buy_button {
+			.wpsc_buy_button_container input.wpsc_buy_button,
+			.shop-sale .product-price {
 				background-color: ' . hybrid_get_setting( 'custom-color-1' ) . '; }
 				
 			.custom-color-2,

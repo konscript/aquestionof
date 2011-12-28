@@ -5,8 +5,6 @@
  */
 add_action('save_post', 'flushGridCache');
 function flushGridCache() {
-//	createGridCache('all');	
-/*
 	$dir = TEMPLATEPATH . '/cache';
 	$objects = scandir($dir); 
 	foreach ($objects as $object) { 
@@ -19,7 +17,7 @@ function flushGridCache() {
 	  } 
 	} 
 	reset($objects);
-*/
+	createGridCache('home');
 }
 
 /**
@@ -234,8 +232,11 @@ function processPostOutput($postId, $postType, $postTaxonomies, $postFields) {
 								' . get_the_title() . '
 							 </div>';
 				if ($postType == "wpsc-product") {		
-					$o .=	'<div class="product-price">
-								' . wpsc_product_variation_price_available($postId) . '
+					$o .=	'<div class="product-price">';
+						if (in_array('shop-sale', $postTaxonomies)) {
+							$o .= 'sale | ';
+						} 
+					$o .= wpsc_product_variation_price_available($postId) . '
 							 </div>';
 				}
 				$o .= '</div>
