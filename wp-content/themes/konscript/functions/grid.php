@@ -234,7 +234,7 @@ function processPostOutput($postId, $postType, $postTaxonomies, $postFields) {
 				if ($postType == "wpsc-product") {		
 					$o .=	'<div class="product-price">';
 						if (in_array('shop-sale', $postTaxonomies)) {
-							$o .= 'on sale  !  ';
+							$o .= 'SALE ';
 						} 
 					$o .= wpsc_product_variation_price_available($postId) . '
 							 </div>';

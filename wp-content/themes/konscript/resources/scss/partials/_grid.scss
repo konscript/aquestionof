@@ -32,8 +32,8 @@ body.no-js #grid {
 		
 			.box .post-title,
 			.box .product-title {
-				position: relative;
-				float: left;
+				position: absolute;
+				left: 0px;
 				padding: 7px 7px 7px 10px;
 				overflow: hidden;
 				white-space: nowrap; }
@@ -48,8 +48,8 @@ body.no-js #grid {
 			}
 			
 			.box .product-price {
-				position: relative;
-				float: right;
+				position: absolute;
+				right: 0px;
 				padding: 7px 10px 7px 7px;
 				background-color: #000;
 				z-index: 30; }
