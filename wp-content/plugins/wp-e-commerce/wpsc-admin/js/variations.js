@@ -18,9 +18,8 @@
 */
 //Delete checkout options on settings>checkout page
 
-jQuery('.variation_checkboxes').livequery(function(){
 
-	debugger;
+jQuery('.variation_checkboxes').livequery(function(){
 
         jQuery('label input:checkbox', this).click(function(){
 
@@ -33,14 +32,16 @@ jQuery('.variation_checkboxes').livequery(function(){
 		variation_set = jQuery(this).parents("div.variation_set");
 
 		switch(is_checked) {
-			case 'checked':
+			case true:
 				jQuery('div.variation input:checkbox', variation_set).attr('checked', true);
 				jQuery('div.variation', variation_set).show();
 			break;
-			default:
+			
+			case false:
 				jQuery('div.variation input:checkbox', variation_set).attr('checked', false);
 				jQuery('div.variation', variation_set).hide();
 			break;
+		
 		}
 		
 		//jQuery('input:checkbox' ,variation_set);
@@ -53,19 +54,20 @@ jQuery('.variation_checkboxes').livequery(function(){
 		is_checked = jQuery(this).attr('checked');
 		variation_set = jQuery(this).parents("div.variation_set");
 		variation = jQuery(this).parents("div.variation");
-
 		switch(is_checked) {
-			case 'checked':
+			case true:
 				jQuery('label.set_label input:checkbox', variation_set).attr('checked', true);
 				jQuery('div.variation', variation_set).show();
 			break;
-			default:
+			
+			case false:
 				checked_count = jQuery('div.variation input:checked', variation_set).length;
 				if(checked_count < 1) {
 					jQuery('div.variation', variation_set).hide();
 					jQuery('label.set_label input:checkbox', variation_set).attr('checked', false);
 				}
 			break;
+		
 		}
 		
 	});
