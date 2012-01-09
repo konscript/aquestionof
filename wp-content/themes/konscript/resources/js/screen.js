@@ -64,6 +64,8 @@ jQuery.noConflict();
 				$('.wpsc_buy_button_container input').val('Added to Shopping Bag!');
 				bounceEffect('.wpsc_buy_button_container input');			
 			
+			} else {
+				$('.wpsc_buy_button').attr('disabled', 'disabled');
 			}
 		});
 	}

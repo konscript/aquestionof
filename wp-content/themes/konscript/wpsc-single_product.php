@@ -50,7 +50,7 @@
 						<?php endif; ?>
 					</div><!--close imagecol-->
 
-					<div class="entry-content">			
+					<div class="productcol entry-content">			
 						<?php
 						/**
 						 * Custom meta HTML and loop
@@ -145,7 +145,7 @@
 											<?php $action = wpsc_product_external_link( wpsc_the_product_id() ); ?>
 											<input class="wpsc_buy_button" type="submit" value="<?php echo wpsc_product_external_link_text( wpsc_the_product_id(), __( 'Buy Now', 'wpsc' ) ); ?>" onclick="return gotoexternallink('<?php echo $action; ?>', '<?php echo wpsc_product_external_link_target( wpsc_the_product_id() ); ?>')">
 											<?php else: ?>
-										<input type="submit" value="<?php _e('Add To Bag', 'wpsc'); ?>" name="Buy" class="wpsc_buy_button" id="product_<?php echo wpsc_the_product_id(); ?>_submit_button"/>
+										<input type="submit" value="<?php _e('Add to Bag', 'wpsc'); ?>" name="Buy" class="wpsc_buy_button" id="product_<?php echo wpsc_the_product_id(); ?>_submit_button" />
 											<?php endif; ?>
 										<div class="wpsc_loading_animation">
 											<img title="Loading" alt="Loading" src="<?php echo wpsc_loading_animation_url(); ?>" />
@@ -153,7 +153,9 @@
 										</div><!--close wpsc_loading_animation-->
 									</div><!--close wpsc_buy_button_container-->
 								<?php else : ?>
-									<p class="soldout"><?php _e('This product has sold out.', 'wpsc'); ?></p>
+									<div class="wpsc_buy_button_container">
+										<input type="submit" value="<?php _e('Product is sold out!', 'wpsc'); ?>" name="Buy" class="wpsc_buy_button" id="product_<?php echo wpsc_the_product_id(); ?>_submit_button" disabled="disabled" />
+									</div><!--close wpsc_buy_button_container-->
 								<?php endif ; ?>
 							<?php endif ; ?>
 														

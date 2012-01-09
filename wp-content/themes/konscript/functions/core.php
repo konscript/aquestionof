@@ -145,9 +145,11 @@ function customColors() {
 
 			.custom-color-1,
 			div.custom-color-1,
-			.wpsc_buy_button_container input.wpsc_buy_button,
-			.shop-sale .product-price {
+			.wpsc_buy_button_container input.wpsc_buy_button {
 				background-color: ' . hybrid_get_setting( 'custom-color-1' ) . '; }
+				
+			.shop-sale .product-price	{
+				color: ' . hybrid_get_setting( 'custom-color-1' ) . '; }
 				
 			.custom-color-2,
 			a.custom-color-2,

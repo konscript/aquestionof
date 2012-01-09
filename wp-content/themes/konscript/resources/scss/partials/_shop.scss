@@ -108,7 +108,12 @@
 		// DIN Eng custom font
 		@include font-dineng();
 		font-size: 20px;
-		line-height: 60px; }
+		line-height: 60px;
+		
+		&[disabled='disabled'] {
+			@include opacity(0.3);
+			background-color: #000; }	
+	}
 
 	.wpsc_loading_animation {
 		display: none; }
