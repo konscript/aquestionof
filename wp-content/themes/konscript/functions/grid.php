@@ -17,7 +17,7 @@ function flushGridCache() {
 	  } 
 	} 
 	reset($objects);
-	createGridCache('home');
+	//createGridCache('home');
 }
 
 /**
