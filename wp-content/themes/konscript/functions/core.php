@@ -131,7 +131,7 @@ function nivo_get_images($product_id = null, $size = 'medium', $limit = '0', $of
 	 			$img_preview = $preview_array[0]; // thumbnail or medium image to use for preview.
 	 			?>
 					<img id="product_image_<?php echo $product_id . '_' . $i ; ?>" class="product_image" src="<?php echo $img_preview; ?>" alt="<?php echo $img_caption; ?>" title="<?php echo $img_caption; ?>" />
-				<?
+				<?php
 				}
 			$i++;
 		} 

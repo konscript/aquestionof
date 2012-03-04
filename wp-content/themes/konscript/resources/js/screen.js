@@ -148,20 +148,57 @@ jQuery.noConflict();
 	
 		// Only run if the clicked menu item is not already the current one
 		if ($(activateMenuItem).next("ul.sub-menu.current").length == 0 && ($(activateMenuItem).next("ul.sub-menu").length != 0 || $(activateMenuItem).attr("href") == "#all")) {
-					
-			// Collapse the previous current
-			$("ul.sub-menu.current").removeClass("current").animate(
-				{width: "1", opacity: 0}, 
-				{queue: false, duration: 1000, complete: function() {
-					$(this).removeAttr('style')
-				}
-			});
 			
+			// Collapse the previous current if the previous current is not a parent of the current
+			if ($(activateMenuItem).parents('.current').length == 0) {
+    			$(".current").animate(
+    				{width: "1", opacity: 0}, 
+    				{queue: false, duration: 1000, complete: function() {
+    					$(this).removeAttr('style');
+    					$(this).removeClass("current");
+    				}
+    			});
+    		// If a sibling has an open sub-menu, collapse it.
+		    } else if ($(activateMenuItem).parent('li').siblings('li').children('.current').length != 0) {
+		        var parentSiblings = $(activateMenuItem).parent('li').siblings('li');
+		        parentSiblings.children('.current').animate(
+    				{width: "1", opacity: 0}, 
+    				{queue: false, duration: 1000, complete: function() {
+    					$(this).removeAttr('style');
+    					parentSiblings.children('.current').removeClass('current');
+    					parentSiblings.find('ul').css('opacity', '0');      // Important to reset this, otherwise fading won't happen the second time.
+                		parentSiblings.find('ul').css('display', 'none');   // Important to reset this, otherwise sliding won't happen the second time.
+    				}
+    			});
+		    }
+		    
+		    var $current = $(activateMenuItem).next("ul.sub-menu");	
 			// Expand the new current (that is clicked)
-			$current = $(activateMenuItem).next("ul.sub-menu");
 			$current.addClass("current").animate({width: "show", opacity: 1}, {queue: false, duration: 1000});
-		}	
+			// Add new CSS class to (sub-)*sub-menus
+			addMenuLevelClass($current);
+			// Hide sub-menus to current menu (otherwise, fade in and slide effects will not happen for these, as they have already been applied once)
+			$current.find('ul').css('opacity', '0');
+    		$current.find('ul').css('display', 'none');
+		}
 	
+	}
+	
+	/**
+	 * Adds a CSS class to currentMenu.
+	 * A menu with depth 2 will get class 'sub-sub-menu', level 3 'sub-sub-sub-menu' and so forth.
+	 */
+	function addMenuLevelClass(currentMenu) {
+	    var subMenuParents = currentMenu.parents('ul.sub-menu').length;
+		if (subMenuParents > 0) {
+		    var i = subMenuParents;
+		    var classString = "sub-menu";
+		    while (i > 0) {
+		        classString = "sub-" + classString
+		        i--;
+		    }
+		    currentMenu.addClass(classString);
+		}
 	}
 	
 	/**
