@@ -158,7 +158,6 @@ jQuery.noConflict();
     					$(this).removeClass("current");
     				}
     			});
-    			alert("Menu debug: Level 1");
     		// If a sibling has an open sub-menu, collapse it.
 		    } else if ($(activateMenuItem).parent('li').siblings('li').children('.current').length != 0) {
 		        var parentSiblings = $(activateMenuItem).parent('li').siblings('li');
@@ -171,7 +170,6 @@ jQuery.noConflict();
                 		parentSiblings.find('ul').css('display', 'none');   // Important to reset this, otherwise sliding won't happen the second time.
     				}
     			});
-    			alert("Menu debug: Level 2");
 		    }
 		    
 		    var $current = $(activateMenuItem).next("ul.sub-menu");	
