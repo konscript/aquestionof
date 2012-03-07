@@ -175,8 +175,10 @@ jQuery.noConflict();
 		    var $current = $(activateMenuItem).next("ul.sub-menu");	
 			// Expand the new current (that is clicked)
 			$current.addClass("current").animate({width: "show", opacity: 1}, {queue: false, duration: 1000});
+			
 			// Add new CSS class to (sub-)*sub-menus
 			addMenuLevelClass($current);
+			
 			// Hide sub-menus to current menu (otherwise, fade in and slide effects will not happen for these, as they have already been applied once)
 			$current.find('ul').css('opacity', '0');
     		$current.find('ul').css('display', 'none');
