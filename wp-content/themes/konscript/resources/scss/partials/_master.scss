@@ -221,7 +221,8 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 				
 				ul.sub-sub-menu {
 					//display: inline-block;
-					@include inline-block;
+					//@include inline-block;
+					display: none;
 					float: none;
 					> li > a {
 						color: #BBB;
