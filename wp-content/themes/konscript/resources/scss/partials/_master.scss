@@ -2,7 +2,7 @@
  * Master
  * Master template for ost header and footer stuff
  */
-
+@import "compass/css3/inline-block";
 /**
  * Body - opening and initialization
  ************************************************/
@@ -184,20 +184,22 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 				ul.sub-menu {
 					display: none;
 					position: relative;
-					float: none;
+					float: left;
 					margin: 0;
 					padding: 0;
 					white-space: nowrap;
 					overflow: hidden;
 			
 					ul.sub-menu.current {
-						display: inline-block;
+						//display: inline-block;
+						@include inline-block;
 						opacity: 1;
-						width: auto; 
+						width: auto;
 						}
 			
 					> li {
-						display: inline-block;
+						display: inline;
+						//@include inline-block;
 						margin: 0 0 0 5px;
 						padding: 0;
 						list-style: none;
@@ -205,6 +207,7 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 						overflow: hidden; }
 				
 						> li > a {
+							@include inline-block;
 							margin: 0;
 							color: gray;
 							text-decoration: none;
@@ -217,6 +220,9 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 				}
 				
 				ul.sub-sub-menu {
+					//display: inline-block;
+					@include inline-block;
+					float: none;
 					> li > a {
 						color: #BBB;
 					}
