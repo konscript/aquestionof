@@ -89,7 +89,8 @@
 					'menu_class' 	=> 'primary-menu custom-color-2',
 					'menu_id' 		=> 'primary-menu',
 					'fallback_cb' 	=> false,
-					'link_before' 	=> '/ '
+					'link_before' 	=> '/ ',
+					'echo' => 0
 					));
 					$menu = str_replace(" ", "", $menu);
 					$menu = str_replace("\t", "", $menu); 
