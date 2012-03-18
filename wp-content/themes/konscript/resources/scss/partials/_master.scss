@@ -211,13 +211,13 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 						> li > a {
 							@include inline-block;
 							margin: 0;
+							padding: 0;
 							color: gray;
 							text-decoration: none;
 							// DIN Eng custom font
 							@include font-dineng();
 							font-size: 26px; 
 							width: auto;
-							float:left;
 							zoom: 1;
 							*display:inline;}
 					
