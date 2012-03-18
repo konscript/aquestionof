@@ -209,15 +209,14 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 						overflow: hidden; }
 				
 						> li > a {
-							//@include inline-block;
-							display:inline;
+							@include inline-block;
 							margin: 0;
 							color: gray;
 							text-decoration: none;
 							// DIN Eng custom font
 							@include font-dineng();
 							font-size: 26px; 
-							width: auto;
+							width: 100%;
 							zoom: 1;
 							*display:inline;}
 					
