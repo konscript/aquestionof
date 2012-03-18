@@ -92,7 +92,6 @@
 					'link_before' 	=> '/ ',
 					'echo' => 0
 					));
-					$menu = str_replace(" ", "", $menu);
 					$menu = str_replace("\t", "", $menu); 
 					$menu = str_replace("\n", "", $menu);
 					$menu = str_replace("\r", "", $menu);
