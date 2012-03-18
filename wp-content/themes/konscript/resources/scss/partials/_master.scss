@@ -209,7 +209,8 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 						overflow: hidden; }
 				
 						> li > a {
-							@include inline-block;
+							//@include inline-block;
+							display:inline;
 							margin: 0;
 							color: gray;
 							text-decoration: none;
