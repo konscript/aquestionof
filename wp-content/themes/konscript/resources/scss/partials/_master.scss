@@ -216,7 +216,7 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 							// DIN Eng custom font
 							@include font-dineng();
 							font-size: 26px; 
-							width: 100%;
+							width: 50%;
 							zoom: 1;
 							*display:inline;}
 					
