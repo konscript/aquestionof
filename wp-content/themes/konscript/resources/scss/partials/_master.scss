@@ -209,7 +209,7 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 						overflow: hidden; }
 				
 						> li > a {
-							//@include inline-block;
+							@include inline-block;
 							margin: 0;
 							padding: 0;
 							color: gray;
@@ -217,7 +217,7 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 							// DIN Eng custom font
 							@include font-dineng();
 							font-size: 26px; 
-							width: auto;
+							//width: auto;
 							zoom: 1;
 							*display:inline;}
 					
