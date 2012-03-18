@@ -14,3 +14,8 @@ body {
   // .my-container
   //   text-align: left
 }
+
+ul.sub-menu > li > a {
+	display: block;
+	float: left;
+}
