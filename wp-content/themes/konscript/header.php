@@ -5,7 +5,7 @@
  * Master template for head-section and body opening with generic elements
  */
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html>
 	<head>	
 		<base href="<?php echo get_bloginfo( 'wpurl' ); ?>/" />
