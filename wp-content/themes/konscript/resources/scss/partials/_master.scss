@@ -218,8 +218,6 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 							@include font-dineng();
 							font-size: 26px; 
 							width: auto;
-							white-space: nowrap;
-							overflow: hidden;
 							zoom: 1;
 							*display:inline;}
 					

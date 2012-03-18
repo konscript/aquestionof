@@ -82,14 +82,21 @@
 					</a>
 				</div>	
 				
-				<?php wp_nav_menu(array(
+				<?php
+				 $menu = wp_nav_menu(array(
 					'theme_location'=> 'primary',
 					'container' 	=> false,
 					'menu_class' 	=> 'primary-menu custom-color-2',
 					'menu_id' 		=> 'primary-menu',
 					'fallback_cb' 	=> false,
 					'link_before' 	=> '/ '
-					)); ?>
+					));
+					$menu = str_replace(" ", "", $menu);
+					$menu = str_replace("\t", "", $menu); 
+					$menu = str_replace("\n", "", $menu);
+					$menu = str_replace("\r", "", $menu);
+					echo $menu;
+					?>
 																					
 			</div><!-- #header -->
 		</div><!-- #header-container -->
