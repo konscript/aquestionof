@@ -195,6 +195,8 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 						@include inline-block;
 						opacity: 1;
 						width: auto;
+						zoom: 1;
+						*display:inline;
 						}
 			
 					> li {
@@ -213,7 +215,10 @@ form { @include blueprint-form-layout; @include blueprint-form-borders; @include
 							text-decoration: none;
 							// DIN Eng custom font
 							@include font-dineng();
-							font-size: 26px; }
+							font-size: 26px; 
+							width: auto;
+							zoom: 1;
+							*display:inline;}
 					
 							> li > a:hover { }
 					
