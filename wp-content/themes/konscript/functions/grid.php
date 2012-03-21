@@ -136,7 +136,7 @@ function postTaxonomies($postId) {
 			}			
 			foreach($taxonomyTerms as $term) {
 				// If the current item has a parent (e.g. category), then fetch that and prepare for prefix
-				if ($term->parent != 0) {
+				if ($term->parent != 0 && $term->taxonomy != 'wpsc_product_category') {
 					$termParent = get_term( $term->parent, $taxonomy );
 					$termParentAdd = $termParent->slug . "-";
 				} else {
