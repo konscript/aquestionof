@@ -69,6 +69,8 @@
 						 */
 						?>
 						
+						<?php $priorityTerms = get_the_terms($post->ID, 'priority'); ?>
+
 						<div class="entry-header">
 							<h1><?php the_title(); ?></h1>
 						</div>
@@ -93,7 +95,7 @@
 
 							<div class="wpsc_product_price">
 								<?php if(wpsc_show_stock_availability()): ?>
-									<?php if(wpsc_product_has_stock()) : ?>
+									<?php if(wpsc_product_has_stock() && isset($priorityTerms[207]) != 1) : // added check for sold-out priority flag ?>
 										<div id="stock_display_<?php echo wpsc_the_product_id(); ?>" class="in_stock"><?php _e('Product in stock', 'wpsc'); ?></div>
 									<?php else: ?>
 										<div id="stock_display_<?php echo wpsc_the_product_id(); ?>" class="out_of_stock"><?php _e('Product not in stock', 'wpsc'); ?></div>
@@ -121,7 +123,7 @@
 							</div><!--close wpsc_product_price-->						
 								
 						<?php /** the variation group HTML and loop */?>
-                        <?php if (wpsc_have_variation_groups()) { ?>
+                        <?php if (wpsc_have_variation_groups() && wpsc_product_has_stock() && isset($priorityTerms[207]) != 1) { // added check for sold-out priority flag ?>
 						<div class="wpsc_variation_forms">
                         	<table>
 							<?php while (wpsc_have_variation_groups()) : wpsc_the_variation_group(); ?>
@@ -139,7 +141,8 @@
 						<?php /** the variation group HTML and loop ends here */?>
 
 							<?php if((get_option('hide_addtocart_button') == 0) &&  (get_option('addtocart_or_buynow') !='1')) : ?>
-								<?php if(wpsc_product_has_stock()) : ?>
+
+								<?php if(wpsc_product_has_stock() && isset($priorityTerms[207]) != 1) : // added check for sold-out priority flag ?>
 									<div class="wpsc_buy_button_container">
 											<?php if(wpsc_product_external_link(wpsc_the_product_id()) != '') : ?>
 											<?php $action = wpsc_product_external_link( wpsc_the_product_id() ); ?>
