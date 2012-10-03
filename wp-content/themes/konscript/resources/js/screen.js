@@ -112,7 +112,8 @@ jQuery.noConflict();
 					animSpeed: 600, //Slide transition speed
 					pauseTime: 6000,
 					directionNav: true, //Next and Prev
-					controlNav: false, //1,2,3...
+					controlNav: true, //1,2,3...
+			        controlNavThumbs: true, // Use thumbnails for Control Nav
 					pauseOnHover: false, //Stop animation while hovering
 					captionOpacity: 0, //Universal caption opacity
 					startSlide: 0, //Set starting Slide (0 index)

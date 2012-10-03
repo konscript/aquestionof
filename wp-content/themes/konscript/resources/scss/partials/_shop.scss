@@ -34,44 +34,8 @@
 	height: auto; }
 						
 #nivo_product_images {
-    position: relative;
-	width: 470px;
-	height: 760px;
+	@include column(12);
 	background: url('../images/loader.gif') no-repeat 50% 50%; }
-	 		 
-	#nivo_product_images .nivo-slice {
-		width: 470px;
-		height: 730px;
-		background-color: #fff; }	
-
-	.nivo-directionNav {
-	    position: absolute;
-	    height: 30px;	
-	    bottom: 0;
-	    width: 100%;
-	    background-color: #000; }
-	    
-	    .nivo-directionNav a {
-		    border: 0;
-			cursor: pointer;
-			padding: 5px;
-			color: #fff;
-			width: 15px;
-			height: 15px;				    
-		    margin-right: 0px;
-		    text-align: center;
-		    text-decoration: none; }
-		    
-		.nivo-directionNav a:hover {
-			color: grey; }				    
-	    
-	    .nivo-directionNav a.nivo-prevNav {
-		    display: block;
-	    	float: left; }
-
-	    .nivo-directionNav a.nivo-nextNav {
-		    display: block;
-	    	float: right; }
 
 .FB_like {
 	@include column(6);

@@ -33,7 +33,7 @@
 		 */
 
 		while ( wpsc_have_products() ) : wpsc_the_product(); ?>
-					<div class="entry-image">
+					<div class="entry-image entry-image-withthumbs">
 						<?php if ( wpsc_the_product_thumbnail() ) : ?>
 								<div id="nivo_product_images">
 									<?php nivo_get_images(wpsc_the_product_id()); ?>

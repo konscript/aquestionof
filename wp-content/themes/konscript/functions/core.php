@@ -128,9 +128,11 @@ function nivo_get_images($product_id = null, $size = 'medium', $limit = '0', $of
 				$img_caption = $image->post_excerpt; // caption.
 				$img_url = wp_get_attachment_url($image->ID); // url of the full size image.
 				$preview_array = image_downsize( $image->ID, $size );
+				$thumb_array = image_downsize( $image->ID, 'thumbnail' );
 	 			$img_preview = $preview_array[0]; // thumbnail or medium image to use for preview.
+	 			$img_thumb = $thumb_array[0];
 	 			?>
-					<img id="product_image_<?php echo $product_id . '_' . $i ; ?>" class="product_image" src="<?php echo $img_preview; ?>" alt="<?php echo $img_caption; ?>" title="<?php echo $img_caption; ?>" />
+					<img id="product_image_<?php echo $product_id . '_' . $i ; ?>" class="product_image" src="<?php echo $img_preview; ?>" data-thumb="<?php echo $img_preview; ?>" alt="<?php echo $img_caption; ?>" title="<?php echo $img_caption; ?>" />
 				<?php
 				}
 			$i++;
