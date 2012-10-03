@@ -1,0 +1,19 @@
+/* =Switch
+----------------------------------------------- */
+
+.packing_slip_has-switch {
+	margin-top:58px !important;
+}
+
+/* =Text Align
+----------------------------------------------- */
+
+.packing_slip .cell-left {
+	text-align:left;
+}
+.packing_slip .cell-center {
+	text-align:center;
+}
+.packing_slip .cell-right {
+	text-align:right;
+}

@@ -1,0 +1,196 @@
+/*
+Theme Name: Twenty Eleven
+Theme URI: http://wordpress.org/extend/themes/twentyeleven
+Author: the WordPress team
+Author URI: http://wordpress.org/
+Version: 1.0
+License: GNU General Public License
+License URI: license.txt
+*/
+
+/* =Structure
+----------------------------------------------- */
+
+html {
+	background-color:transparent !important;
+}
+#content {
+	width:848px;
+	margin-right:0;
+	font-size:12px;
+	margin-bottom:1em;
+}
+
+/* =Header
+----------------------------------------------- */
+
+#header {
+	
+}
+	#branding img {
+		width:auto !important;
+		height:auto !important;
+	}
+	#header td {
+		vertical-align:top;
+	}
+	#header h3 {
+		text-transform:uppercase;
+		font-size:3em;
+		margin:0.5em 0;
+		padding:0;
+	}
+
+/* =Checkout
+----------------------------------------------- */
+
+#checkout {
+	width:100%;
+	margin:0 0 1em 0;
+	padding:0;
+	border-spacing:0;
+	border-top:2px solid #ccc;
+}
+	#checkout h3 {
+		margin:1em 0;
+		padding:0;
+		font-weight:bold;
+	}
+	#checkout th, #checkout table td {
+		line-height:1em;
+		margin:0;
+		padding:0.2em 0;
+		vertical-align:top;
+	}
+	#checkout th {
+		text-align:left;
+		vertical-align:top;
+	}
+
+/* =Sale Summary
+----------------------------------------------- */
+
+#sale_summary {
+	margin:0.5em 0;
+	border-spacing:0;
+	border-top:2px solid #ccc;
+	width:100%;
+}
+	#sale_summary td {
+		vertical-align:top;
+	}
+	#sale_summary p {
+		margin:1em 0;
+		padding:0;
+	}
+
+/* =Cart
+----------------------------------------------- */
+
+#cart {
+	padding:0;
+	border-spacing:0;
+	width:100%;
+}
+	#cart td, #cart th {
+		margin:0;
+		padding:0;
+		line-height:2em;
+		vertical-align:top;
+	}
+	#cart tr.cart_header th {
+		padding:0.5em;
+		border-bottom:2px solid #ccc;
+		border-right:2px solid #ccc;
+	}
+	#cart tr.cart_header th:first-child {
+		padding-left:0;
+	}
+	#cart tr.cart_header th:last-child {
+		border-right:none;
+		padding-right:0;
+	}
+	#cart tr.cart_item td {
+		padding:1em 0.5em;
+		border-bottom:2px solid #ccc;
+		border-right:2px solid #ccc;
+	}
+	#cart tr.cart_item td:first-child {
+		padding-left:0;
+	}
+	#cart tr.cart_item td:last-child {
+		border-right:none;
+		padding-right:0;
+	}
+	#cart .subtotal th, #cart .subtotal td {
+		line-height:1.5em;
+		vertical-align:middle;
+	}
+	#cart .subtotal th {
+		padding-right:0.5em;
+	}
+	#cart .subtotal td {
+		padding:0.5em 0;
+	}
+	#cart .subtotal span {
+		margin:0 !important;
+		padding:0 !important;
+		line-height:normal !important;
+	}
+	#cart .subtotal_total td {
+		font-weight:bold;
+	}
+
+/* =Notes
+----------------------------------------------- */
+
+#notes {
+	padding-top:0.5em;
+	border-top:2px solid #ccc;
+}
+
+/* =Footer
+----------------------------------------------- */
+
+#footer {
+	margin:0;
+	padding:0;
+	position:relative;
+	border:none;
+	color:#000;
+}
+
+/* =Print
+----------------------------------------------- */
+
+@media print {
+
+	h1#site-title {
+		margin:0;
+		padding:0;
+	}
+	#site-description {
+		margin:0 0 0.5em 0;
+	}
+
+	table {
+		border:none;
+	}
+	#content {
+		width:auto;
+	}
+
+	#branding #searchform {
+		top:0;
+		right:0;
+	}
+
+	#branding #searchform, #branding img {
+		display:inline !important;
+	}
+
+	#site-generator {
+		border-top:2px solid #ccc;
+	}
+
+}
