@@ -125,23 +125,23 @@
 								<?php endif; ?>
 							</div><!--close wpsc_product_price-->						
 								
-						<?php /** the variation group HTML and loop */?>
-                        <?php if (wpsc_have_variation_groups() && wpsc_product_has_stock() && $prioritySoldOut != 1) { // added check for sold-out priority flag ?>
-						<div class="wpsc_variation_forms">
-                        	<table>
-							<?php while (wpsc_have_variation_groups()) : wpsc_the_variation_group(); ?>
-								<tr><td class="col1"><label for="<?php echo wpsc_vargrp_form_id(); ?>"><?php echo wpsc_the_vargrp_name(); ?>:</label></td>
-								<?php /** the variation HTML and loop */?>
-								<td class="col2"><select class="wpsc_select_variation" name="variation[<?php echo wpsc_vargrp_id(); ?>]" id="<?php echo wpsc_vargrp_form_id(); ?>">
-								<?php while (wpsc_have_variations()) : wpsc_the_variation(); ?>
-									<option value="<?php echo wpsc_the_variation_id(); ?>" <?php echo wpsc_the_variation_out_of_stock(); ?>><?php echo wpsc_the_variation_name(); ?></option>
+							<?php /** the variation group HTML and loop */?>
+	                        <?php if (wpsc_have_variation_groups() && wpsc_product_has_stock() && $prioritySoldOut != 1) { // added check for sold-out priority flag ?>
+							<div class="wpsc_variation_forms">
+	                        	<table>
+								<?php while (wpsc_have_variation_groups()) : wpsc_the_variation_group(); ?>
+									<tr><td class="col1"><label for="<?php echo wpsc_vargrp_form_id(); ?>"><?php echo wpsc_the_vargrp_name(); ?>:</label></td>
+									<?php /** the variation HTML and loop */?>
+									<td class="col2"><select class="wpsc_select_variation" name="variation[<?php echo wpsc_vargrp_id(); ?>]" id="<?php echo wpsc_vargrp_form_id(); ?>">
+									<?php while (wpsc_have_variations()) : wpsc_the_variation(); ?>
+										<option value="<?php echo wpsc_the_variation_id(); ?>" <?php echo wpsc_the_variation_out_of_stock(); ?>><?php echo wpsc_the_variation_name(); ?></option>
+									<?php endwhile; ?>
+									</select></td></tr> 
 								<?php endwhile; ?>
-								</select></td></tr> 
-							<?php endwhile; ?>
-                            </table>
-						</div><!--close wpsc_variation_forms-->
-						<?php } ?>
-						<?php /** the variation group HTML and loop ends here */?>
+	                            </table>
+							</div><!--close wpsc_variation_forms-->
+							<?php } ?>
+							<?php /** the variation group HTML and loop ends here */?>
 
 							<?php if((get_option('hide_addtocart_button') == 0) &&  (get_option('addtocart_or_buynow') !='1')) : ?>
 
@@ -165,11 +165,6 @@
 								<?php endif ; ?>
 							<?php endif ; ?>
 														
-							<?php if(wpsc_show_fb_like()): ?>
-		                        <div class="FB_like">
-								<iframe src="http://www.facebook.com/plugins/like.php?href=<?php echo wpsc_the_product_permalink(); ?>&amp;send=false&amp;layout=standard&amp;width=230&amp;show_faces=true&amp;action=like&amp;colorscheme=dark&amp;font=arial&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:230px; height:80px;" allowTransparency="true"></iframe>		                        
-		                        </div><!--close FB_like-->
-	                        <?php endif; ?>								
 
 							<?php
 							/**
@@ -204,6 +199,7 @@
 							?>
 						</form><!--close product_form-->
 					
+
 						<?php
 							if ( (get_option( 'hide_addtocart_button' ) == 0 ) && ( get_option( 'addtocart_or_buynow' ) == '1' ) )
 								echo wpsc_buy_now_button( wpsc_the_product_id() );
@@ -225,6 +221,23 @@
 							</div><!--close single_additional_description-->
 						<?php endif; ?>		
 						<?php do_action( 'wpsc_product_addon_after_descr', wpsc_the_product_id() ); ?>                        
+	
+						<?php // show social like buttons
+							if(wpsc_show_fb_like()): ?>
+	                        <div class="social-buttons">
+								<!-- AddThis Button BEGIN -->
+								<div class="addthis_toolbox addthis_default_style ">
+									<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+									<a class="addthis_button_tweet"></a>
+									<a class="addthis_button_pinterest_pinit"></a>
+									<a class="addthis_counter addthis_pill_style"></a>
+								</div>
+								<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+								<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-507ef54879897ad1"></script>
+								<!-- AddThis Button END -->
+	                        </div><!--close social-buttons-->
+                        <?php endif; ?>
+
 					</div><!--close productcol-->
 		
 					<form onsubmit="submitform(this);return false;" action="<?php echo wpsc_this_page_url(); ?>" method="post" name="product_<?php echo wpsc_the_product_id(); ?>" id="product_extra_<?php echo wpsc_the_product_id(); ?>">

@@ -17,6 +17,14 @@
 			
 		.entry-content {
 			@include column(12, true); }
+
+			.product_description iframe {
+				margin-top: 15px;
+			}
+
+			.social-buttons {
+				float: left;
+			} 
 			
 		.entry-header {
 			background-color: #000;				
