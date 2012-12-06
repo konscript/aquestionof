@@ -29,11 +29,11 @@ endif;
       <th><?php _e('Total', 'wpsc'); ?></th>
         <th>&nbsp;</th>
    </tr>
-   
+
 	<tr class="wpsc_cart_seperatorrow">
 		<td colspan="6"></td>
-	</tr>   
-   
+	</tr>
+
    <?php while (wpsc_have_cart_items()) : wpsc_the_cart_item(); ?>
       <?php
        $alt++;
@@ -74,7 +74,7 @@ endif;
             </form>
          </td>
 
-       
+
             <td><?php echo wpsc_cart_single_item_price(); ?></td>
          <td class="wpsc_product_price wpsc_product_price_<?php echo wpsc_the_cart_item_key(); ?>"><span class="pricedisplay"><?php echo wpsc_cart_item_price(); ?></span></td>
 
@@ -110,19 +110,19 @@ endif;
             </form>
          </td>
       </tr>
-  <?php if(wpsc_uses_shipping()): ?>      
+  <?php if(wpsc_uses_shipping()): ?>
       <tr class="wpsc_total_before_shipping">
 	      <td colspan="3"><?php _e('Cost before shipping:','wpsc'); ?></td>
 	      <td colspan="3" class="wpsc_total_amount_before_shipping"><?php echo wpsc_cart_total_widget(false,false,false);?></td>
       </tr>
-     <?php endif ?>      
-            
+     <?php endif ?>
+
    <?php endif; ?>
-   		
-		
+
+
      <?php if(wpsc_uses_coupons() && (wpsc_coupon_amount(false) > 0)): ?>
       <tr class="total_price">
-			<td colspan="3"></td>      
+			<td colspan="3"></td>
          <td colspan="1" class="wpsc_totals">
             <?php _e('Discount', 'wpsc'); ?>
          </td>
@@ -130,9 +130,9 @@ endif;
             <span id="coupons_amount" class="pricedisplay">-<?php echo wpsc_coupon_amount(); ?></span>
           </td>
          </tr>
-     <?php endif ?>      
-		
-		
+     <?php endif ?>
+
+
 		<tr class="wpsc_cart_totalprice">
 			<td colspan="3"></td>
 			<td colspan="1"><?php _e('Total Price', 'wpsc'); ?></td>
@@ -148,11 +148,11 @@ endif;
             <td colspan="2"><span id="checkout_tax" class="pricedisplay checkout-tax"><?php echo wpsc_cart_tax(); ?></span></td>
          </tr>
    <?php endif; ?>
-		
-		 
-   
-   </table>   
-   
+
+
+
+   </table>
+
    <!-- cart contents table close -->
   <?php if(wpsc_uses_shipping()): ?>
 	   <p class="wpsc_cost_before"></p>
@@ -245,13 +245,15 @@ endif;
    <?php endif;  ?>
 
    <?php do_action('wpsc_before_form_of_shopping_cart'); ?>
-                 
+
+   <h3>Tell us about yourself</h3>
+
 	<?php if(!empty($_SESSION['wpsc_checkout_user_error_messages'])): ?>
 		<p class="validation-error">
 		<?php
 		foreach($_SESSION['wpsc_checkout_user_error_messages'] as $user_error )
 		echo $user_error."<br />\n";
-		
+
 		$_SESSION['wpsc_checkout_user_error_messages'] = array();
 		?>
 	<?php endif; ?>
@@ -259,10 +261,10 @@ endif;
 	<?php if ( wpsc_show_user_login_form() && !is_user_logged_in() ): ?>
 			<p><?php _e('You must sign in or register with us to continue with your purchase');?></p>
 			<div class="wpsc_registration_form">
-				
+
 				<fieldset class='wpsc_registration_form'>
 					<h2><?php _e( 'Sign in' ); ?></h2>
-					
+
 					<?php
 					$args = array( 'remember' => false );
 					wp_login_form( $args );
@@ -270,9 +272,9 @@ endif;
 					<div class="wpsc_signup_text"><?php _e('If you have bought from us before please sign in here to purchase');?></div>
 				</fieldset>
 			</div>
-	<?php endif; ?>	
+	<?php endif; ?>
 	<form class='wpsc_checkout_forms' action='<?php echo get_option('shopping_cart_url'); ?>' method='post' enctype="multipart/form-data">
-				
+
       <?php
       /**
        * Both the registration forms and the checkout details forms must be in the same form element as they are submitted together, you cannot have two form elements submit together without the use of JavaScript.
@@ -284,22 +286,22 @@ endif;
           get_currentuserinfo();   ?>
 
 		<div class="wpsc_registration_form">
-			
+
 	        <fieldset class='wpsc_registration_form wpsc_right_registration'>
 	        	<h2><?php _e('Join up now');?></h2>
-	      
+
 				<label><?php _e('Username'); ?>:</label>
 				<input type="text" name="log" id="log" value="" size="20"/><br/>
-				
+
 				<label><?php _e('Password'); ?>:</label>
 				<input type="password" name="pwd" id="pwd" value="" size="20" /><br />
-				
+
 				<label><?php _e('E-mail'); ?>:</label>
 	            <input type="text" name="user_email" id="user_email" value="<?php echo attribute_escape(stripslashes($user_email)); ?>" size="20" /><br />
-	            
+
 	            <div class="wpsc_signup_text"><?php _e('Signing up is free and easy! please fill out your details your registration will happen automatically as you checkout. Don\'t forget to use your details to login with next time!');?></div>
 	        </fieldset>
-	        
+
         </div>
         <div class="clear"></div>
    <?php endif; // closes user login form
@@ -340,8 +342,8 @@ endif;
                   	$_SESSION['shippingSameBilling'] = true;
                   elseif(isset($_POST['submit']) && !isset($_POST['shippingSameBilling']))
                   	$_SESSION['shippingSameBilling'] = false;
-                  	
-                  	
+
+
                   	if($_SESSION['shippingSameBilling'])
                   	$checked = 'checked="checked"';
                    ?>
@@ -390,10 +392,7 @@ endif;
                "<table class='wpsc_checkout_table'>
 					<tbody>
 						<tr>
-							<td><h4>Provide us your e-mail address</h4></td>
-						</tr>
-						<tr>
-							<td class='" . wpsc_checkout_form_element_id() . "' style='width: 196px'><label class='wpsc_email_address' for='" . wpsc_checkout_form_element_id() . "'>
+							<td class='" . wpsc_checkout_form_element_id() . "' style='width: 16%'><label class='wpsc_email_address' for='" . wpsc_checkout_form_element_id() . "'>
                      " . __('E-mail', 'wpsc') . "</label></td>
 							<td>" . wpsc_checkout_form_field() . "</td>
 					</tbody>
@@ -401,7 +400,7 @@ endif;
                 if(wpsc_the_checkout_item_error() != '') {
                 	$email_markup .= "<p class='validation-error'>" . wpsc_the_checkout_item_error() . "</p>";
                 }
-                   
+
              } else { ?>
 			<tr>
                <td class='<?php echo wpsc_checkout_form_element_id(); ?>'>
@@ -420,8 +419,8 @@ endif;
          <?php }//endif; ?>
 
       <?php endwhile; ?>
- 
-<?php 
+
+<?php
 	$buffer_contents = ob_get_contents();
 	ob_end_clean();
 	if(isset($email_markup))
@@ -451,7 +450,7 @@ endif;
             <h3><?php _e('Payment Type', 'wpsc');?></h3>
             <?php while (wpsc_have_gateways()) : wpsc_the_gateway(); ?>
                <div class="custom_gateway">
-                     <label><input type="radio" value="<?php echo wpsc_gateway_internal_name();?>" <?php echo wpsc_gateway_is_checked(); ?> name="custom_gateway" class="custom_gateway"/><?php echo wpsc_gateway_name(); ?> 
+                     <label><input type="radio" value="<?php echo wpsc_gateway_internal_name();?>" <?php echo wpsc_gateway_is_checked(); ?> name="custom_gateway" class="custom_gateway"/><?php echo wpsc_gateway_name(); ?>
                      	<?php if( wpsc_show_gateway_image() ): ?>
                      	<img src="<?php echo wpsc_gateway_image_url(); ?>" alt="<?php echo wpsc_gateway_name(); ?>" style="position:relative; top:5px;" />
                      	<?php endif; ?>
@@ -490,11 +489,30 @@ endif;
                 <a target='_blank' href='<?php
          			// Changed to hardcoded page - not best practise but required for custom Terms & Conditions
          			echo get_bloginfo( 'wpurl' ) . "/terms-conditions";
-         			?>' > <?php _e('Terms and Conditions', 'wpsc');?></a>         
+         			?>' > <?php _e('Terms and Conditions', 'wpsc');?></a>
                </td>
          </tr>
       <?php endif; ?>
       </table>
+
+   <!-- WWI GLS map integration (custom by Konscript) -->
+   <h3>Package pickup location</h3>
+   <p>For Danish customers: Get it delivered next door so you can pick it up anytime you want.</p>
+   <div id="glsparcelshop"></div>
+   <script type="text/javascript">
+      //var gls_address = "Dampfærgevej 2A";
+      //var gls_zipcode = 2300;
+      var gls_txt = "Find nearest pickup: ";
+      var gls_searchbutton = "Search";
+      var gls_no_result = "Couldn't find any pickup shops, sorry.";
+      var gls_encoding = "UTF-8";
+      var gls_amount = 10;
+      var gls_address_txt = "Address";
+      var gls_zipcode_txt = "Zip-code";
+      var gls_autosearch = 1;
+   </script>
+   <script type="text/javascript" src="http://integration.gls.dk/web/parcelshop.php"></script>
+   <!-- *END* WWI GLS map integration -->
 
    <table  class='wpsc_checkout_table table-4'>
       <?php if(wpsc_uses_shipping()) : ?>
@@ -503,7 +521,7 @@ endif;
 	            <h4><?php _e('Review and purchase','wpsc'); ?></h4>
 	         </td>
 	      </tr>
-	
+
 	      <tr class="total_price total_shipping">
 	         <td class='wpsc_totals'>
 	            <?php _e('Total Shipping', 'wpsc'); ?>

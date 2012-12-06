@@ -6,22 +6,22 @@
 
 	.related-post-title {
 		@include column(6);
-		margin-top: 160px;			
+		margin-top: 160px;
 		float: right;
-		margin-bottom: 15px;				
+		margin-bottom: 15px;
 		// DIN Eng custom font
 		@include font-dineng();
 		font-size: 26px;
 		margin-left: $grid-margin * 2; }
-						
+
 	.related-post {
 		@include column(6);
 		float: right;
 		clear: right;
 		margin-left: $grid-margin * 2; }
-	
+
 	.related-product {
-		@include column(6);		
+		@include column(6);
 		float: right;
 		clear: right;
 		margin-left: $grid-columnwidth;}
@@ -32,7 +32,7 @@
 #fancy_notification{
 	display: none;
 	height: auto; }
-						
+
 #nivo_product_images {
 	@include column(12);
 	background: url('../images/loader.gif') no-repeat 50% 50%; }
@@ -47,11 +47,11 @@
 .product_form {
 	@include column(6);
 	float: left; }
-	
+
 .wpsc_product_price {
 	font-size: 18px;
 	font-weight: bold; }
-	
+
 	.wpsc_product_price .pricedisplay {
 		margin: 5px 0; }
 
@@ -59,7 +59,7 @@
 	float: left;
 	clear: both;
 	width: 100%; }
-	
+
 	.wpsc_buy_button_container input.wpsc_buy_button {
 		cursor: pointer;
 		float: left;
@@ -73,26 +73,26 @@
 		@include font-dineng();
 		font-size: 20px;
 		line-height: 60px;
-		
+
 		&[disabled='disabled'] {
 			@include opacity(0.3);
-			background-color: #000; }	
+			background-color: #000; }
 	}
 
 	.wpsc_loading_animation {
 		display: none; }
-	
+
 .wpsc_product-footer-notifications {
-	float: left; }		
+	float: left; }
 
 .wpsc_variation_forms {
 	float: left;
 	clear: both;
 	width: 100%; }
-	
+
 	.wpsc_variation_forms table {
 		margin: 10px 0; }
-	
+
 	.wpsc_variation_forms table tr td {
 		padding: 0; }
 
@@ -103,18 +103,19 @@
 		padding: 7px 7px 7px 0px; }
 
 	.wpsc_variation_forms table tr td.col2 {}
-	
+
 		.wpsc_select_variation {
 			width: 130px; }
-	
+
 .product_description {
 	padding-left: $grid-margin;
 	margin-left: $grid-columnwidth * 6;
-	
+
 	p iframe { // seeks to match all embedded videos and move them left
 		margin-left: - ($grid-columnwidth * 6 + $grid-margin); }
 	}
-	
+
+/* CHECKOUT */
 tr.wpsc_cart_seperatorrow td {
 	padding: 0;
 	height: 3px;
@@ -126,8 +127,8 @@ form.wpsc_checkout_forms textarea {
 form.wpsc_checkout_forms .asterix,
 .wpsc_coupon_error_row,
 .validation-error {
-	color: red; }		
-	
+	color: red; }
+
 .wpsc_product_quantity form input[type="text"] {
 	width: 18px;
 }
@@ -137,4 +138,49 @@ form.wpsc_checkout_forms .asterix,
 
 form.qty {
 	min-width: 100px;
+}
+
+#wpsc_shopping_cart_container {
+	h3 {
+		color: black;
+		@include font-dineng();
+		text-transform: uppercase;
+		text-decoration: none;
+		font-weight: normal;
+		line-height: 1;
+		font-size: 26px;
+		margin: 1em 0;
+	}
+
+	h4 {
+		font-size: 1.5em;
+		line-height: 1.25;
+		margin: 1em 0;
+	}
+
+	input.make_purchase.wpsc_buy_button {
+		display: block;
+		cursor: pointer;
+		float: left;
+		height: 60px;
+		padding: 0 10px;
+		width: 150px;
+		color: #ffffff;
+		background-color: #46aa4f;
+		border: 0;
+		margin-right: $grid-margin;
+		// DIN Eng custom font
+		@include font-dineng();
+		font-size: 20px;
+		line-height: 60px;
+	}
+}
+
+#glsparcelshop {
+	.gls_address {
+		width: 20%;
+	}
+	.gls_zipcode {
+		width: 5%;
+	}
 }
