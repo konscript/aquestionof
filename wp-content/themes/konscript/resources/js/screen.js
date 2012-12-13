@@ -3,27 +3,79 @@ jQuery.noConflict();
 
 	// Base site url from WP html head
 	var base = $("base").attr("href");
-	
+
 	// To be run when DOM is loaded. Initializes all effects and behaviours
-	//$(window).load(function() {	
 	$(document).ready(function() {
 		// Masonry Grid effect
 		initMasonryEffect();
-		
+
 		// Global stuff
 		primaryMenuEvents();
 		masterbarLinkHoverEvent();
-		
+
 		// Specific	stuff
 		nivoProductImages();
-		addToCartEvent();		
+		addToCartEvent();
 		emailFormFocusClear();
-	
+
+		// Checkout
+		glsCountryTrigger();
+		glsListen();
+		checkoutSubmit();
 	});
 
 	/**
+	 * GLS on checkout field handling
+	 */
+
+	// Whenever Country is changed, figure out whether GLS should be showed
+	function glsCountryTrigger(){
+		if ($('select#wpsc_checkout_form_7 option:selected').text() !== 'Denmark') {
+			// Hide GLS
+			$('td.wpsc_shipping_forms').show();
+			$('tr.same_as_shipping_row td').show();
+			$('#glswrap').hide();
+		} else {
+			// Show GLS
+			$('td.wpsc_shipping_forms').hide();
+			$('tr.same_as_shipping_row td').hide();
+			$('#glswrap').show();
+		}
+	}
+	// Set the GLS field (that will be saved)
+	function glsSet(choice) {
+		var input = $('input#wpsc_checkout_form_19');
+
+		var newVal = choice.val();
+		var newText = choice.next().html();
+
+		input.val("GLS " + newVal + " - " + newText);
+	}
+	// Hide fields and listen for changes to user packageshop choice
+	function glsListen() {
+		// Hide fields
+		$('td.wpsc_checkout_form_19').hide();
+		$('input#wpsc_checkout_form_19').hide();
+		// Do country check and listen
+		glsCountryTrigger();
+		$('select#wpsc_checkout_form_7').live('change',function(){
+			glsCountryTrigger();
+		});
+		// Listen for GLS user choice
+		$('#gls_result input').live('change',function(){
+			glsSet($(this));
+		});
+	}
+	// Handlers when submitting the purchase
+	function checkoutSubmit() {
+		$('.wpsc_make_purchase input.wpsc_buy_button').click(function(e){
+			glsSet($('#gls_result input:checked'));
+		});
+	}
+
+	/**
 	 * Removes the help-text when newsletter form is focused
-	 */	
+	 */
 	function emailFormFocusClear() {
 		$('form#mc-embedded-subscribe-form input[type="text"]').live('focus', function() {
 			if($(this).val() == 'Fill in e-mail') {
@@ -31,80 +83,80 @@ jQuery.noConflict();
 			}
 		});
 	}
-	
+
 	/**
 	 * When item is added to cart, it will show shopping bag with incremented count and bounce links
 	 */
 	function addToCartEvent() {
 		$("form.product_form .wpsc_buy_button").click(function() {
-			
+
 			var breakOut = false;
 			var selectedVariations = $("select.wpsc_select_variation option:selected");
-			
+
 			selectedVariations.each(function() {
-				if ($(this).val() == 0) {
+				if ($(this).val() === 0) {
 					breakOut = true;
 				}
 			});
-			if ($('.wpsc_buy_button').is(':disabled') == true) {
+			if ($('.wpsc_buy_button').is(':disabled') === true) {
 				breakOut = true;
-			}			
-			
-			if (breakOut == false) {
-			
+			}
+
+			if (breakOut === false) {
+
 				$(".masterbar-goshop").hide();
 				$(".masterbar-shoppingbag").show();
-				
+
 				var bagCount = parseInt($(".masterbar-shoppingbag span").html());
 				if(isNaN(parseInt($(".masterbar-shoppingbag span").html()))) { bagCount = 0; }
-				
+
 				$(".masterbar-shoppingbag span").html(bagCount + 1);
 				bounceEffect('.masterbar-shoppingbag');
-							
+
 				$('.wpsc_buy_button_container input').val('Added to Shopping Bag!');
-				bounceEffect('.wpsc_buy_button_container input');			
-			
+				bounceEffect('.wpsc_buy_button_container input');
+
 			} else {
 				$('.wpsc_buy_button').attr('disabled', 'disabled');
 			}
 		});
 	}
-	
+
 	/**
 	 * Makes the masterbar links bounce when hovered
 	 */
 	function masterbarLinkHoverEvent() {
 		$("#masterbar a").hover(
 			function () {
-				bounceEffect(this);			
+				bounceEffect(this);
 			}, function () {});
 	}
-	
+
 	/**
 	 * Run a bounce effect on the supplied element
 	 */
 	function bounceEffect(element) {
-    	if ( !$(element).is(':animated') ) { 		  	
-	        $(element).css('position','relative');
-	        $(element).animate({'top': '-=3px'}, 50, function(){
-	            $(element).animate({'top': '+=6px'}, 100, function(){
-	                $(element).animate({'top': '-=6px'}, 100, function(){
-	                    $(element).animate({'top': '+=6px'}, 100, function(){
-	                        $(element).animate({'top': '-=3px'}, 50);
-	                    });
-	                });
-	            });
-	        });
-		}	
+		if ( !$(element).is(':animated') ) {
+			$(element).css('position','relative');
+			$(element).animate({'top': '-=3px'}, 50, function(){
+				$(element).animate({'top': '+=6px'}, 100, function(){
+					$(element).animate({'top': '-=6px'}, 100, function(){
+						$(element).animate({'top': '+=6px'}, 100, function(){
+							$(element).animate({'top': '-=3px'}, 50);
+						});
+					});
+				});
+			});
+		}
 	}
-	
+
 	/**
 	 * Make WPEC product pages feature a image gallery based on Nivo jQuery plugin
 	 */
 	function nivoProductImages() {
 
 		$(window).load(function() {
-			//var rand = Math.floor(Math.random()*total);			
+			//var rand = Math.floor(Math.random()*total);
 			var total = $('#nivo_product_images img').length;
 			if(total > 1) {
 				$('#nivo_product_images').nivoSlider({
@@ -113,7 +165,7 @@ jQuery.noConflict();
 					pauseTime: 6000,
 					directionNav: true, //Next and Prev
 					controlNav: true, //1,2,3...
-			        controlNavThumbs: true, // Use thumbnails for Control Nav
+					controlNavThumbs: true, // Use thumbnails for Control Nav
 					pauseOnHover: false, //Stop animation while hovering
 					captionOpacity: 0, //Universal caption opacity
 					startSlide: 0, //Set starting Slide (0 index)
@@ -121,39 +173,39 @@ jQuery.noConflict();
 					keyboardNav: true,
 					manualAdvance: false,
 					prevText: '‹', // Prev directionNav text
-					nextText: '›', // Next directionNav text
+					nextText: '›' // Next directionNav text
 				});
-			}	
+			}
 		});
 	}
-	
-	
+
+
 	/**
 	 * Bind the primary menu effects to events
 	 */
 	function primaryMenuEvents() {
-		
+
 		// Only run on masonry-enabled grid pages
-		if ($('#grid').length != 0) {
+		if ($('#grid').length !== 0) {
 			$("#primary-menu > li.menu-item-type-taxonomy > a, #site-title a").click(function() {
 				primaryMenuEffect(this);
-			});	
-		}		
-	
+			});
+		}
+
 	}
-	
+
 	/**
 	 * Run the primary menu effect on the supplied item
 	 */
 	function primaryMenuEffect(activateMenuItem) {
-	
+
 		// Only run if the clicked menu item is not already the current one
 		if ($(activateMenuItem).next("ul.sub-menu.current").length == 0 && ($(activateMenuItem).next("ul.sub-menu").length != 0 || $(activateMenuItem).attr("href") == "#all")) {
-			
+
 			// Collapse the previous current if the previous current is not a parent of the current
 			if ($(activateMenuItem).parents('.current').length == 0) {
     			$(".current").animate(
-    				{width: "1", opacity: 0}, 
+    				{width: "1", opacity: 0},
     				{queue: false, duration: 1000, complete: function() {
     					$(this).removeAttr('style');
     					$(this).removeClass("current");
@@ -163,7 +215,7 @@ jQuery.noConflict();
 		    } else if ($(activateMenuItem).parent('li').siblings('li').children('.current').length != 0) {
 		        var parentSiblings = $(activateMenuItem).parent('li').siblings('li');
 		        parentSiblings.children('.current').animate(
-    				{width: "1", opacity: 0}, 
+    				{width: "1", opacity: 0},
     				{queue: false, duration: 1000, complete: function() {
     					$(this).removeAttr('style');
     					parentSiblings.children('.current').removeClass('current');
@@ -172,21 +224,21 @@ jQuery.noConflict();
     				}
     			});
 		    }
-		    
-		    var $current = $(activateMenuItem).next("ul.sub-menu");	
+
+		    var $current = $(activateMenuItem).next("ul.sub-menu");
 			// Expand the new current (that is clicked)
 			$current.addClass("current").animate({width: "show", opacity: 1}, {queue: false, duration: 1000});
-			
+
 			// Add new CSS class to (sub-)*sub-menus
 			addMenuLevelClass($current);
-			
+
 			// Hide sub-menus to current menu (otherwise, fade in and slide effects will not happen for these, as they have already been applied once)
 			$current.find('ul').css('opacity', '0');
     		$current.find('ul').css('display', 'none');
 		}
-	
+
 	}
-	
+
 	/**
 	 * Adds a CSS class to currentMenu.
 	 * A menu with depth 2 will get class 'sub-sub-menu', level 3 'sub-sub-sub-menu' and so forth.
@@ -203,13 +255,13 @@ jQuery.noConflict();
 		    currentMenu.addClass(classString);
 		}
 	}
-	
+
 	/**
 	 * ------------------------------------------------------
 	 * Masonry Grid Effect
-	 * ------------------------------------------------------	 
+	 * ------------------------------------------------------
 	 */
-	 
+
 	// Global settings
 	var gridContainer = "#grid";
 	var gridElement = "div.box";
@@ -219,91 +271,91 @@ jQuery.noConflict();
 	var gridColumnWidth = 40;
 	var elmBusy = false;
 	var gridFirstTime = true;
-	
+
 	// To be run first!!! Will initiate the effect and keep track of changes etc.
 	function initMasonryEffect() {
-	
+
 		$allElm = $(gridElementSpecific); // Get all elements from DOM and set allElm variable
-		$allElm.hide(); // Hide html elements prelimenary 
+		$allElm.hide(); // Hide html elements prelimenary
 		$allElm.css('position', 'absolute'); // Positions elements absolutely
-		
+
 		// If the grid is present (#grid has elements), do masonry
 		if ($allElm.length != 0) {
-		
+
 			// Check if site is accessed correctly through the hashes (for index pages). If not, redirect to home and set hash route.
-			if ($('body.home').length == 0) { 
+			if ($('body.home').length == 0) {
 				var newUrl = hashizeUrl(window.location.href);
 				setUrl(newUrl);
-				
+
 			// If no hash is set, initialize splash screen with all items
 			} else if (getHash() == '') {
 				setHash('all');
-			
+
 			// Page is ready for masonry
-			} else if (getHash() == 'shop') { 
-				setHash('category-shop');				
+			} else if (getHash() == 'shop') {
+				setHash('category-shop');
 			} else {
 				prepareMasonry();
 			}
-			
+
 			// Change hash on click
 			$('li.menu-item-type-taxonomy > a').click(function() {
 				var category = hashizeUrl($(this).attr("href"), true);
 //				category = category.replace(/\//g,"-");
 				setHash(category);
 				return false;
-			});			
-	
+			});
+
 			// Watch for hash change and do masonry when changed
 			$(window).hashchange(function() {
-			
+
 				// Alert Google Analytics that new async page has been called (converted to non-hashed url) and track with _gaq
 				if (checkGoogleAnalyticsLoaded()) {
 					var trackUrl = antiHashizeUrl(getHash(), true, false);
 					if (trackUrl == "all") { trackUrl == ""; }
-					var trackLocation = '/' + trackUrl;					
+					var trackLocation = '/' + trackUrl;
 					_gaq.push(['_trackPageview', trackLocation]);
 				}
 
 				prepareMasonry();
-			});		
-			
+			});
+
 		// The grid is not present, wait for clicks
 		} else {
-				
+
 			// Change hash on click
 			$('li.menu-item-type-taxonomy > a').click(function() {
 				var category = hashizeUrl($(this).attr("href"), true);
-//				category = category.replace(/\//g,"-");		
-				var url = base + "#" + category;			
+//				category = category.replace(/\//g,"-");
+				var url = base + "#" + category;
 				setUrl(url);
 				return false;
-			});						
+			});
 		}
-	
+
 	}
-	
+
 	// Performs pre-masonry actions before the effect is run by adding/removing necessary elements
 	function prepareMasonry() {
 		$(loadingIcon).fadeIn("fast"); // Show the loading icon
 		elmBusy = true;
-	
+
 		// Get the current category and attempt to find the link in primary-menu that it should correspondingly open
 		var category = getHash();
 		var searchUrl = antiHashizeUrl(category, false, true);
 		var possibleMenuItem = '#primary-menu li a[href="' + searchUrl + '"]';
 		if($(possibleMenuItem).length != 0) {
-			primaryMenuEffect(possibleMenuItem);	
+			primaryMenuEffect(possibleMenuItem);
 		}
-	
+
 		// previous elements
 		var $previousElm = $(gridElementSpecific);
-		
+
 		// If its the frontpage, impersonate the priority-frontpage category
 		if (category == "all") {
 			category = "priority-frontpage";
 		}
-		
+
 		// remove elements which are not chosen from previous
 		var $matchedElm = $(gridElement + "." + category);
 		var $removeElm = $previousElm.not($matchedElm);
@@ -314,41 +366,41 @@ jQuery.noConflict();
 		// get new elements - select all elm that have the corresponding
 		// category and deselect all that are already there (from previous)
 		var $newElm = $allElm.filter(gridElement + "." + category).not($keptElm);
-		var $elmToBeRemoved = $previousElm.filter($removeElm);	
-			
+		var $elmToBeRemoved = $previousElm.filter($removeElm);
+
 		// Check if there are any elements to remove
-		if($elmToBeRemoved.size() > 0){		
-			var counterRemoved = 0;				
+		if($elmToBeRemoved.size() > 0){
+			var counterRemoved = 0;
 			$elmToBeRemoved.fadeOut("slow", function() {
 				$(this).remove();
 				counterRemoved++;
 				if ($elmToBeRemoved.length == counterRemoved) {
-					bootstrapMasonry($newElm);																		
+					bootstrapMasonry($newElm);
 				}
 			});
-			
+
 		// No elements to remove (e.g. going from subcat to topcat)
 		} else {
-			bootstrapMasonry($newElm);																		
+			bootstrapMasonry($newElm);
 		}
 	}
-		
+
 	function bootstrapMasonry($newElm) {
-		
-		// Append new items and do masonry	
+
+		// Append new items and do masonry
 		$(gridContainer).prepend($newElm);
-		
+
 		if (gridFirstTime) {
 			loadImages($(gridElementSpecific));
 		} else {
 			loadImages($newElm);
 		}
-		
-		$(gridElementSpecific).tsort({attr:'rel', order:'desc'});	
-		
+
+		$(gridElementSpecific).tsort({attr:'rel', order:'desc'});
+
 		doMasonry();
 	}
-	
+
 	function loadImages($elements){
 //	$("#grid div.box a img").lazyload({ threshold : 1, failurelimit : 1, effect : "fadeIn" });
 		$elements.each(function(){
@@ -358,10 +410,10 @@ jQuery.noConflict();
 			}
 		});
 
-	}	
-	
+	}
+
 	// Do masonry effect
-	function doMasonry() {	
+	function doMasonry() {
 		$(gridContainer).masonry({
 			columnWidth : gridColumnWidth,
 			animate : true,
@@ -372,8 +424,8 @@ jQuery.noConflict();
 				easing : 'swing',
 				queue : true
 			}
-		});	
-		
+		});
+
 		//if there are no boxes we wont get a callback above
 		if($(gridElementSpecific).size()==0){
 			$(loadingIcon).fadeOut("fast");
@@ -382,22 +434,22 @@ jQuery.noConflict();
 		// show the grid container again when masonry has been run
 		$(gridContainer).css('opacity', 1);
 
-		fadeInElm($(gridElementSpecific));	
+		fadeInElm($(gridElementSpecific));
 	}
-	
+
 	// Fades in elements and removes the loader icon when done
 	function fadeInElm($elm){
 		var counterElm = 0;
 		$elm.fadeIn("slow", function() {
-			counterElm++;		
+			counterElm++;
 			if ($elm.length == counterElm) {
 //				$elm.show();
 				$(loadingIcon).fadeOut("fast");
 				elmBusy = false;
-			}			
+			}
 		});
 	}
-	
+
 	// Call to set a new route hash value
 	function setHash(routeHash) {
 		window.location.hash = routeHash; }
@@ -408,14 +460,14 @@ jQuery.noConflict();
 	// Set the location to a specified full url
 	function setUrl(url) {
 		window.location = url; }
-	
+
 	// Gets a direct long url (typically to a cat or subcat) and hashize it from the base url
 	// e.g. http://aquestionof.net/category/media/campaigns > http://aquestionof.net/#category-media-campaigns
 	function hashizeUrl(url, relative) {
 		if(!relative) { var relative = false }
-		
+
 		var currentUrl = url.replace(/\/$/,""); // Replaces the trailing slash if exists so it doesnt cause trouble when hashing
-		var category = currentUrl.replace(base,"").replace(/\//g,"-"); // Make url relative and turn slashes to dashes			
+		var category = currentUrl.replace(base,"").replace(/\//g,"-"); // Make url relative and turn slashes to dashes
 
 		if (!relative) {
 			return base + "#" + category; // Create new url with hash
@@ -423,18 +475,18 @@ jQuery.noConflict();
 			return category; // Create new url with hash
 		}
 	}
-	
+
 	// If supplied by a hashed url (from hashizeUrl), it will attempt to convert it back to its static counterpart
 	function antiHashizeUrl(url, relative, trailingslash) {
 		if(!relative) { var relative = false }
-		
+
 		var currentUrl = url.replace(/\/$/,""); // Replaces the trailing slash if exists so it doesnt cause trouble when hashing
-		
+
 		if (trailingslash) {
 			currentUrl = url + "/";
 		}
-		
-		var category = currentUrl.replace(base,"").replace(/-/g,"/").replace(/#/g,""); // Make url relative and turn slashes to dashes			
+
+		var category = currentUrl.replace(base,"").replace(/-/g,"/").replace(/#/g,""); // Make url relative and turn slashes to dashes
 
 		if (!relative) {
 			return base + category; // Create new url with hash
@@ -442,7 +494,7 @@ jQuery.noConflict();
 			return category; // Create new url with hash
 		}
 	}
-	
+
 	// Will check if site uses Google Analytics and return true/false
 	function checkGoogleAnalyticsLoaded() {
 		try {

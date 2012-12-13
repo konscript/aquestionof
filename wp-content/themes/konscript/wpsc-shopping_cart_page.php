@@ -443,6 +443,29 @@ endif;
       <?php endif; ?>
       <?php do_action('wpsc_inside_shopping_cart'); ?>
 
+      <tr><td colspan="2">
+         <!-- WWI GLS map integration (custom by Konscript) -->
+         <div id="glswrap">
+            <h3>Package pickup location</h3>
+            <p>For Danish customers: Get it delivered next door so you can pick it up anytime you want.</p>
+            <div id="glsparcelshop"></div>
+            <script type="text/javascript">
+               //var gls_address = "Dampfærgevej 2A";
+               //var gls_zipcode = 2300;
+               var gls_txt = "Find nearest pickup: ";
+               var gls_searchbutton = "Search";
+               var gls_no_result = "Couldn't find any pickup shops, sorry.";
+               var gls_encoding = "UTF-8";
+               var gls_amount = 10;
+               var gls_address_txt = "Address";
+               var gls_zipcode_txt = "Zip-code";
+               var gls_autosearch = 1;
+            </script>
+            <script type="text/javascript" src="http://integration.gls.dk/web/parcelshop.php"></script>
+         </div>
+         <!-- *END* WWI GLS map integration -->
+      </td></tr>
+
       <?php  //this HTML displays activated payment gateways   ?>
       <?php if(wpsc_gateway_count() > 1): // if we have more than one gateway enabled, offer the user a choice ?>
          <tr>
@@ -494,25 +517,6 @@ endif;
          </tr>
       <?php endif; ?>
       </table>
-
-   <!-- WWI GLS map integration (custom by Konscript) -->
-   <h3>Package pickup location</h3>
-   <p>For Danish customers: Get it delivered next door so you can pick it up anytime you want.</p>
-   <div id="glsparcelshop"></div>
-   <script type="text/javascript">
-      //var gls_address = "Dampfærgevej 2A";
-      //var gls_zipcode = 2300;
-      var gls_txt = "Find nearest pickup: ";
-      var gls_searchbutton = "Search";
-      var gls_no_result = "Couldn't find any pickup shops, sorry.";
-      var gls_encoding = "UTF-8";
-      var gls_amount = 10;
-      var gls_address_txt = "Address";
-      var gls_zipcode_txt = "Zip-code";
-      var gls_autosearch = 1;
-   </script>
-   <script type="text/javascript" src="http://integration.gls.dk/web/parcelshop.php"></script>
-   <!-- *END* WWI GLS map integration -->
 
    <table  class='wpsc_checkout_table table-4'>
       <?php if(wpsc_uses_shipping()) : ?>
