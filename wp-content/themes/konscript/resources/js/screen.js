@@ -64,7 +64,7 @@ jQuery.noConflict();
 		if(!choice){
 			choice = $('#gls_result input:checked');
 		}
-		var input = $('input#wpsc_checkout_form_19');
+		var input = $('input.billing_region');
 
 		var newVal = choice.val();
 		var newText = choice.next().html();
@@ -75,8 +75,9 @@ jQuery.noConflict();
 	function glsListen() {
 
 		// Hide/remove stuff
-		$('td.wpsc_checkout_form_19').hide();
-		$('input#wpsc_checkout_form_19').hide();
+		//$('td.wpsc_checkout_form_19').hide();
+		$('input.billing_region').parent().hide();
+		$('input.billing_region').parent().prev().hide();
 		$('.productcart tr.wpsc_shipping_info').remove();
 		$('.productcart tr.wpsc_change_country').remove();
 
