@@ -174,7 +174,7 @@ endif;
 
    <div id="wpsc_shopping_cart_container">
    <?php if(wpsc_uses_shipping()) : ?>
-      <h2><?php _e('Calculate Shipping Price', 'wpsc'); ?></h2>
+      <h3><?php _e('Calculate Shipping Price', 'wpsc'); ?></h3>
       <table class="productcart">
          <tr class="wpsc_shipping_info">
             <td colspan="5">
@@ -446,19 +446,20 @@ endif;
       <tr><td colspan="2">
          <!-- WWI GLS map integration (custom by Konscript) -->
          <div id="glswrap">
-            <h3>Package pickup location</h3>
-            <p>For Danish customers: Get it delivered next door so you can pick it up anytime you want.</p>
+            <h3>GLS PACKAGE SHOP</h3>
+            <p>Your order is delivered to a Package Shop near you where you can pick it up.<br />
+            Package Shops typically has extended opening hours. See addresses and hours below</p>
             <div id="glsparcelshop"></div>
             <script type="text/javascript">
                //var gls_address = "Dampfærgevej 2A";
                //var gls_zipcode = 2300;
-               var gls_txt = "Find nearest pickup: ";
+               var gls_txt = "Enter your zip code to see the GLS package shops near you: ";
                var gls_searchbutton = "Search";
                var gls_no_result = "Couldn't find any pickup shops, sorry.";
                var gls_encoding = "UTF-8";
                var gls_amount = 10;
                var gls_address_txt = "Address";
-               var gls_zipcode_txt = "Zip-code";
+               var gls_zipcode_txt = "Zip code";
                var gls_autosearch = 1;
             </script>
             <script type="text/javascript" src="http://integration.gls.dk/web/parcelshop.php"></script>
