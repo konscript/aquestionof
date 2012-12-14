@@ -140,7 +140,7 @@ form.qty {
 	min-width: 100px;
 }
 
-#wpsc_shopping_cart_container {
+#checkout_page_container {
 	h3 {
 		color: black;
 		@include font-dineng();
@@ -158,6 +158,10 @@ form.qty {
 		margin: 1em 0;
 	}
 
+	table.productcart {
+		width: 29%;
+	}
+
 	input.make_purchase.wpsc_buy_button {
 		display: block;
 		cursor: pointer;
@@ -173,6 +177,14 @@ form.qty {
 		@include font-dineng();
 		font-size: 20px;
 		line-height: 60px;
+	}
+
+	// hide Review and purchase summary in bottom
+	td.wpsc_total_price_and_shipping {
+		display: none;
+	}
+	tr.total_price, tr.total_shipping {
+		display: none;
 	}
 }
 

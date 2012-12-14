@@ -31,19 +31,39 @@ jQuery.noConflict();
 	// Whenever Country is changed, figure out whether GLS should be showed
 	function glsCountryTrigger(){
 		if ($('select#wpsc_checkout_form_7 option:selected').text() !== 'Denmark') {
-			// Hide GLS
-			$('td.wpsc_shipping_forms').show();
-			$('tr.same_as_shipping_row td').show();
+			// International, hide GLS
+			// $('td.wpsc_shipping_forms').show();
+			// $('tr.same_as_shipping_row td').show();
+			// $('#glswrap').hide();
+			$('.productcart tr.simple_shipping_1').hide();
+			$('.productcart tr.simple_shipping_0 input').attr('checked', 'checked');
+			glsTypeTrigger();
+		} else {
+			// Denmark, show GLS
+			//$('#glswrap').show();
+			$('.productcart tr.simple_shipping_1').show();
+		}
+
+	}
+	function glsTypeTrigger(){
+		if ($('.wpsc_shipping_quote_radio input:checked').attr('id') !== 'simple_shipping_1'){
+			// To door chosen
+			//$('td.wpsc_shipping_forms').show();
+			//$('tr.same_as_shipping_row td').show();
 			$('#glswrap').hide();
 		} else {
-			// Show GLS
-			$('td.wpsc_shipping_forms').hide();
-			$('tr.same_as_shipping_row td').hide();
+			// GLS chosen
+			//$('td.wpsc_shipping_forms').hide();
+			//$('tr.same_as_shipping_row td').hide();
 			$('#glswrap').show();
+			glsShopTrigger();
 		}
 	}
 	// Set the GLS field (that will be saved)
-	function glsSet(choice) {
+	function glsShopTrigger(choice) {
+		if(!choice){
+			choice = $('#gls_result input:checked');
+		}
 		var input = $('input#wpsc_checkout_form_19');
 
 		var newVal = choice.val();
@@ -53,23 +73,34 @@ jQuery.noConflict();
 	}
 	// Hide fields and listen for changes to user packageshop choice
 	function glsListen() {
-		// Hide fields
+
+		// Hide/remove stuff
 		$('td.wpsc_checkout_form_19').hide();
 		$('input#wpsc_checkout_form_19').hide();
+		$('.productcart tr.wpsc_shipping_info').remove();
+		$('.productcart tr.wpsc_change_country').remove();
+
 		// Do country check and listen
 		glsCountryTrigger();
 		$('select#wpsc_checkout_form_7').live('change',function(){
 			glsCountryTrigger();
 		});
+
+		// Listen to shipping type
+		glsTypeTrigger();
+		$('.wpsc_shipping_quote_radio input').live('change',function(){
+			glsTypeTrigger();
+		});
+
 		// Listen for GLS user choice
 		$('#gls_result input').live('change',function(){
-			glsSet($(this));
+			glsShopTrigger($(this));
 		});
 	}
 	// Handlers when submitting the purchase
 	function checkoutSubmit() {
 		$('.wpsc_make_purchase input.wpsc_buy_button').click(function(e){
-			glsSet($('#gls_result input:checked'));
+			glsShopTrigger();
 		});
 	}
 

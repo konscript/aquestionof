@@ -170,81 +170,8 @@ endif;
    endif;
    ?>
 
-   <?php do_action('wpsc_before_shipping_of_shopping_cart'); ?>
-
-   <div id="wpsc_shopping_cart_container">
-   <?php if(wpsc_uses_shipping()) : ?>
-      <h3><?php _e('Calculate Shipping Price', 'wpsc'); ?></h3>
-      <table class="productcart">
-         <tr class="wpsc_shipping_info">
-            <td colspan="5">
-               <?php _e('Please choose a country below to calculate your shipping costs', 'wpsc'); ?>
-            </td>
-         </tr>
-
-         <?php if (!wpsc_have_shipping_quote()) : // No valid shipping quotes ?>
-            <?php if (wpsc_have_valid_shipping_zipcode()) : ?>
-                  <tr class='wpsc_update_location'>
-                     <td colspan='5' class='shipping_error' >
-                        <?php _e('Please provide a Zipcode and click Calculate in order to continue.', 'wpsc'); ?>
-                     </td>
-                  </tr>
-            <?php else: ?>
-               <tr class='wpsc_update_location_error'>
-                  <td colspan='5' class='shipping_error' >
-                     <?php _e('Sorry, online ordering is unavailable to this destination and/or weight. Please double check your destination details.', 'wpsc'); ?>
-                  </td>
-               </tr>
-            <?php endif; ?>
-         <?php endif; ?>
-         <tr class='wpsc_change_country'>
-            <td colspan='5'>
-               <form name='change_country' id='change_country' action='' method='post'>
-                  <?php echo wpsc_shipping_country_list();?>
-                  <input type='hidden' name='wpsc_update_location' value='true' />
-                  <input type='submit' name='wpsc_submit_zipcode' value='Calculate' />
-               </form>
-            </td>
-         </tr>
-
-         <?php if (wpsc_have_morethanone_shipping_quote()) :?>
-            <?php while (wpsc_have_shipping_methods()) : wpsc_the_shipping_method(); ?>
-                  <?php    if (!wpsc_have_shipping_quotes()) { continue; } // Don't display shipping method if it doesn't have at least one quote ?>
-                  <tr class='wpsc_shipping_header'><td class='shipping_header' colspan='5'><?php echo wpsc_shipping_method_name().__(' - Choose a Shipping Rate', 'wpsc'); ?> </td></tr>
-                  <?php while (wpsc_have_shipping_quotes()) : wpsc_the_shipping_quote();  ?>
-                     <tr class='<?php echo wpsc_shipping_quote_html_id(); ?>'>
-                        <td class='wpsc_shipping_quote_name wpsc_shipping_quote_name_<?php echo wpsc_shipping_quote_html_id(); ?>' colspan='3'>
-                           <label for='<?php echo wpsc_shipping_quote_html_id(); ?>'><?php echo wpsc_shipping_quote_name(); ?></label>
-                        </td>
-                        <td class='wpsc_shipping_quote_price wpsc_shipping_quote_price_<?php echo wpsc_shipping_quote_html_id(); ?>' style='text-align:center;'>
-                           <label for='<?php echo wpsc_shipping_quote_html_id(); ?>'><?php echo wpsc_shipping_quote_value(); ?></label>
-                        </td>
-                        <td class='wpsc_shipping_quote_radio wpsc_shipping_quote_radio_<?php echo wpsc_shipping_quote_html_id(); ?>' style='text-align:center;'>
-                           <?php if(wpsc_have_morethanone_shipping_methods_and_quotes()): ?>
-                              <input type='radio' id='<?php echo wpsc_shipping_quote_html_id(); ?>' <?php echo wpsc_shipping_quote_selected_state(); ?>  onclick='switchmethod("<?php echo wpsc_shipping_quote_name(); ?>", "<?php echo wpsc_shipping_method_internal_name(); ?>")' value='<?php echo wpsc_shipping_quote_value(true); ?>' name='shipping_method' />
-                           <?php else: ?>
-                              <input <?php echo wpsc_shipping_quote_selected_state(); ?> disabled='disabled' type='radio' id='<?php echo wpsc_shipping_quote_html_id(); ?>'  value='<?php echo wpsc_shipping_quote_value(true); ?>' name='shipping_method' />
-                                 <?php wpsc_update_shipping_single_method(); ?>
-                           <?php endif; ?>
-                        </td>
-                     </tr>
-                  <?php endwhile; ?>
-            <?php endwhile; ?>
-         <?php endif; ?>
-
-         <?php wpsc_update_shipping_multiple_methods(); ?>
-
-
-         <?php if (!wpsc_have_shipping_quote()) : // No valid shipping quotes ?>
-               </table>
-               </div>
-			</div>
-            <?php return; ?>
-         <?php endif; ?>
-      </table>
-   <?php endif;  ?>
-
    <?php do_action('wpsc_before_form_of_shopping_cart'); ?>
+   <div id="wpsc_shopping_cart_container">
 
    <h3>Tell us about yourself</h3>
 
@@ -441,7 +368,87 @@ endif;
          </td>
       </tr>
       <?php endif; ?>
+
       <?php do_action('wpsc_inside_shopping_cart'); ?>
+
+      <tr><td colspan="2">
+         <!-- Shipping selection -->
+
+         <?php do_action('wpsc_before_shipping_of_shopping_cart'); ?>
+
+         <?php if(wpsc_uses_shipping()) : ?>
+            <h3><?php _e('Choose Shipping Type', 'wpsc'); ?></h3>
+            <table class="productcart">
+               <tr class="wpsc_shipping_info">
+                  <td colspan="5">
+                     <?php _e('Please choose a country below to calculate your shipping costs', 'wpsc'); ?>
+                  </td>
+               </tr>
+
+               <?php if (!wpsc_have_shipping_quote()) : // No valid shipping quotes ?>
+                  <?php if (wpsc_have_valid_shipping_zipcode()) : ?>
+                        <tr class='wpsc_update_location'>
+                           <td colspan='5' class='shipping_error' >
+                              <?php _e('Please provide a Zipcode and click Calculate in order to continue.', 'wpsc'); ?>
+                           </td>
+                        </tr>
+                  <?php else: ?>
+                     <tr class='wpsc_update_location_error'>
+                        <td colspan='5' class='shipping_error' >
+                           <?php _e('Sorry, online ordering is unavailable to this destination and/or weight. Please double check your destination details.', 'wpsc'); ?>
+                        </td>
+                     </tr>
+                  <?php endif; ?>
+               <?php endif; ?>
+               <tr class='wpsc_change_country'>
+                  <td colspan='5'>
+                     <form name='change_country' id='change_country' action='' method='post'>
+                        <?php echo wpsc_shipping_country_list();?>
+                        <input type='hidden' name='wpsc_update_location' value='true' />
+                        <input type='submit' name='wpsc_submit_zipcode' value='Calculate' />
+                     </form>
+                  </td>
+               </tr>
+
+               <?php if (wpsc_have_morethanone_shipping_quote()) :?>
+                  <?php while (wpsc_have_shipping_methods()) : wpsc_the_shipping_method(); ?>
+                        <?php    if (!wpsc_have_shipping_quotes()) { continue; } // Don't display shipping method if it doesn't have at least one quote ?>
+                        <tr class='wpsc_shipping_header'><td class='shipping_header' colspan='5'><?php echo wpsc_shipping_method_name().__(' - Choose a Shipping Rate', 'wpsc'); ?> </td></tr>
+                        <?php while (wpsc_have_shipping_quotes()) : wpsc_the_shipping_quote();  ?>
+                           <tr class='<?php echo wpsc_shipping_quote_html_id(); ?>'>
+                              <td class='wpsc_shipping_quote_name wpsc_shipping_quote_name_<?php echo wpsc_shipping_quote_html_id(); ?>' colspan='3'>
+                                 <label for='<?php echo wpsc_shipping_quote_html_id(); ?>'><?php echo wpsc_shipping_quote_name(); ?></label>
+                              </td>
+                              <td class='wpsc_shipping_quote_price wpsc_shipping_quote_price_<?php echo wpsc_shipping_quote_html_id(); ?>' style='text-align:center;'>
+                                 <label for='<?php echo wpsc_shipping_quote_html_id(); ?>'><?php echo wpsc_shipping_quote_value(); ?></label>
+                              </td>
+                              <td class='wpsc_shipping_quote_radio wpsc_shipping_quote_radio_<?php echo wpsc_shipping_quote_html_id(); ?>' style='text-align:center;'>
+                                 <?php if(wpsc_have_morethanone_shipping_methods_and_quotes()): ?>
+                                    <input type='radio' id='<?php echo wpsc_shipping_quote_html_id(); ?>' <?php echo wpsc_shipping_quote_selected_state(); ?>  onclick='switchmethod("<?php echo wpsc_shipping_quote_name(); ?>", "<?php echo wpsc_shipping_method_internal_name(); ?>")' value='<?php echo wpsc_shipping_quote_value(true); ?>' name='shipping_method' />
+                                 <?php else: ?>
+                                    <input <?php echo wpsc_shipping_quote_selected_state(); ?> disabled='disabled' type='radio' id='<?php echo wpsc_shipping_quote_html_id(); ?>'  value='<?php echo wpsc_shipping_quote_value(true); ?>' name='shipping_method' />
+                                       <?php wpsc_update_shipping_single_method(); ?>
+                                 <?php endif; ?>
+                              </td>
+                           </tr>
+                        <?php endwhile; ?>
+                  <?php endwhile; ?>
+               <?php endif; ?>
+
+               <?php wpsc_update_shipping_multiple_methods(); ?>
+
+
+               <?php if (!wpsc_have_shipping_quote()) : // No valid shipping quotes ?>
+                     </table>
+                     </div>
+               </div>
+                  <?php return; ?>
+               <?php endif; ?>
+            </table>
+         <?php endif;  ?>
+
+         <!-- *END* Shipping selection -->
+      </td></tr>
 
       <tr><td colspan="2">
          <!-- WWI GLS map integration (custom by Konscript) -->
