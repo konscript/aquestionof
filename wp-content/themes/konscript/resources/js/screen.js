@@ -32,29 +32,22 @@ jQuery.noConflict();
 	function glsCountryTrigger(){
 		if ($('select#wpsc_checkout_form_7 option:selected').text() !== 'Denmark') {
 			// International, hide GLS
-			// $('td.wpsc_shipping_forms').show();
-			// $('tr.same_as_shipping_row td').show();
-			// $('#glswrap').hide();
 			$('.productcart tr.simple_shipping_1').hide();
 			$('.productcart tr.simple_shipping_0 input').attr('checked', 'checked');
-			glsTypeTrigger();
 		} else {
 			// Denmark, show GLS
-			//$('#glswrap').show();
 			$('.productcart tr.simple_shipping_1').show();
+			$('.productcart tr.simple_shipping_1 input').attr('checked', 'checked');
 		}
-
+		glsTypeTrigger();
 	}
 	function glsTypeTrigger(){
 		if ($('.wpsc_shipping_quote_radio input:checked').attr('id') !== 'simple_shipping_1'){
 			// To door chosen
-			//$('td.wpsc_shipping_forms').show();
-			//$('tr.same_as_shipping_row td').show();
 			$('#glswrap').hide();
+			$('input.billing_region').val("N/A");
 		} else {
 			// GLS chosen
-			//$('td.wpsc_shipping_forms').hide();
-			//$('tr.same_as_shipping_row td').hide();
 			$('#glswrap').show();
 			glsShopTrigger();
 		}
@@ -75,7 +68,6 @@ jQuery.noConflict();
 	function glsListen() {
 
 		// Hide/remove stuff
-		//$('td.wpsc_checkout_form_19').hide();
 		$('input.billing_region').parent().hide();
 		$('input.billing_region').parent().prev().hide();
 		$('.productcart tr.wpsc_shipping_info').remove();
