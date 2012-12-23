@@ -17,6 +17,7 @@ wp-content/*
 wp-content/plugins/*
 !wp-content/plugins/wp-e-commerce/
 !wp-content/plugins/wp-e-commerce-printable-invoices/
+!wp-content/plugins/wp-e-commerce-style-email/
 ## !wp-content/plugins/my-single-file-plugin.php
 ## !wp-content/plugins/my-directory-plugin/
 

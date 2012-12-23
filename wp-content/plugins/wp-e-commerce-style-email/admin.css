@@ -1,0 +1,158 @@
+
+.style-emails {
+	padding-left:30px;
+	
+}
+.style-emails form {
+	padding-bottom:20px;
+	padding-top:20px;
+	width:420px;
+}
+.style-emails input {
+	margin-right:5px;
+}
+.style-emails textarea {
+	width:420px;
+	height:60px;
+	margin-bottom:10px;
+}
+.esce_loading {
+	width:16px;
+	height:16px;
+	display:inline-block;
+	vertical-align:middle;
+}
+.style-emails pre {
+	padding:5px;
+	padding-bottom:0;
+}
+
+
+
+
+
+
+.style-emails form#email-style-wish-form input {
+	display:inline-block;
+}
+.sent-message {
+	color:red;
+	margin-bottom:10px;
+}
+
+
+
+
+
+
+
+
+#ecse_theme_editor_container, .ecse_overlay {
+	height:100%;
+	left:0;
+	position:fixed;
+	top:0;
+	width:100%;
+	z-index:100;
+	background:url("images/macFFBgHack.png") repeat scroll 0 0 transparent;
+	display:none;
+}
+#ecse_theme_editor_inner, .ecse_overlay .inner {
+	background-color: white;
+	padding: 20px;
+	position: absolute;
+	top: 40px;
+	left: 40px;
+	bottom: 40px;
+	right: 40px;
+	min-height:150px;
+}
+.ecse_overlay #ecse_theme_editor {
+	bottom: 40px;
+	position: absolute;
+	top: 70px;
+	right: 30px;
+	left: 20px;
+	width: auto;
+	height: auto;
+	min-width:90%;
+	min-height:55%;
+}
+#ecse_theme_editor_controls {
+	position:absolute;
+	bottom:10px;
+}
+.ecse_overlay .submit_button {
+	border-color:#21759B;
+	color:#21759B;
+}
+.ecse_overlay .submit_button:hover {
+	border-color:#D54E21;
+	color:#D54E21;
+}
+
+
+
+
+
+
+
+#ecse_notifications {
+	display:none;
+	position:fixed;
+	top:0;
+	left:0;
+	padding-top:60px;
+	width:100%;
+	text-align:center;
+	z-index:101;
+}
+#esce_notifications_inner {
+	background-color:#FFF896;
+	border:2px solid #FFD573;
+	color:#735000;
+	padding:10px;
+	display:inline;
+	font-weight:bold;
+	-moz-box-shadow: 0 0 5px #333333;
+	-webkit-box-shadow: 0 0 5px #333333;
+	box-shadow: 0 0 5px #333333;
+}
+
+#expandable_tips {
+	border-left:2px solid #CCCCCC;
+	display:none;
+	margin-left:10px;
+	padding-left:10px;
+	margin-bottom:20px;
+}
+#expandable_tips_hide {
+	display:none;
+}
+#expandable_tips img {
+	margin-top:5px;
+	margin-bottom:15px;
+	margin-right:5px;
+	border:solid 1px #333333;
+}
+.expandable_tips_control {
+	display:inline-block;
+	cursor:pointer;
+	text-decoration:underline;
+	color:#21759B;
+}
+.expandable_tips_control:hover {
+	color:#D54E21;
+}
+.expandable_tips_control img {
+	vertical-align:middle;
+}
+
+.style-emails .list-item {
+	padding-bottom:20px;
+	padding-top:20px;
+}
+
+.style-emails #email-style-options-form input[type="submit"] {
+	margin-top:5px;
+}
