@@ -25,7 +25,7 @@
 	</div>
 	<!-- #header -->
 	</hgroup>
-	
+
 </header>
 
 <div id="content">
@@ -88,7 +88,7 @@ if( $purch_data['input_data'] ) {
 				break;
 
 			default:
-				if( $form_field['unique_name'] == 'shippingstate' ) { ?>
+				if( $form_field['unique_name'] == 'xxxshippingstate' ) { // Invalidated by KONSCRIPT, we just want regular output ?>
 					<tr id="form_uniquename-<?php echo $form_field['unique_name']; ?>" class="form-shipping_state field_type-<?php echo $form_field['type']; ?>">
 						<th style="<?php wpsc_pi_template_checkout_form_label_styles(); ?>"><strong><?php echo wp_kses( $form_field['name'], array() ); ?>:</strong></th>
 						<td>
