@@ -45,10 +45,13 @@ jQuery.noConflict();
 		if ($('.wpsc_shipping_quote_radio input:checked').attr('id') !== 'simple_shipping_1'){
 			// To door chosen
 			$('#glswrap').hide();
-			$('input.billing_region').val("N/A");
+			$('input.shipping_region').val("N/A");
+			$('#shippingsameasbillingmessage').text('Your order will be shipped to the billing address');
 		} else {
 			// GLS chosen
 			$('#glswrap').show();
+			$('#shippingSameBilling').attr('checked', 'checked').trigger('change');
+			$('#shippingsameasbillingmessage').text('You can pick up the package in the chosen Package Shop');
 			glsShopTrigger();
 		}
 	}
@@ -57,7 +60,7 @@ jQuery.noConflict();
 		if(!choice){
 			choice = $('#gls_result input:checked');
 		}
-		var input = $('input.billing_region');
+		var input = $('input.shipping_region');
 
 		var newVal = choice.val();
 		var newText = choice.next().html();
@@ -68,8 +71,8 @@ jQuery.noConflict();
 	function glsListen() {
 
 		// Hide/remove stuff
-		$('input.billing_region').parent().hide();
-		$('input.billing_region').parent().prev().hide();
+		$('input.shipping_region').parent().hide();
+		$('input.shipping_region').parent().prev().hide();
 		$('.productcart tr.wpsc_shipping_info').remove();
 		$('.productcart tr.wpsc_change_country').remove();
 
@@ -93,7 +96,7 @@ jQuery.noConflict();
 	// Handlers when submitting the purchase
 	function checkoutSubmit() {
 		$('.wpsc_make_purchase input.wpsc_buy_button').click(function(e){
-			glsShopTrigger();
+			glsTypeTrigger();
 		});
 	}
 
