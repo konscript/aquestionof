@@ -455,7 +455,7 @@ endif;
          <div id="glswrap">
             <h3>GLS PACKAGE SHOP</h3>
             <p>Your order is delivered to a Package Shop near you where you can pick it up.<br />
-            Package Shops typically has extended opening hours. See addresses and hours below</p>
+            Package Shops typically has extended opening hours. See addresses below:</p>
             <div id="glsparcelshop"></div>
             <script type="text/javascript">
                //var gls_address = "Dampfærgevej 2A";

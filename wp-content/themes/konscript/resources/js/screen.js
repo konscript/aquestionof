@@ -31,28 +31,34 @@ jQuery.noConflict();
 	// Whenever Country is changed, figure out whether GLS should be showed
 	function glsCountryTrigger(){
 		if ($('select#wpsc_checkout_form_7 option:selected').text() !== 'Denmark') {
-			// International, hide GLS
+			// International, hide GLS Package
 			$('.productcart tr.simple_shipping_1').hide();
-			$('.productcart tr.simple_shipping_0 input').attr('checked', 'checked');
+			$('.productcart tr.simple_shipping_0 input').attr('checked', 'checked').trigger('change');
 		} else {
-			// Denmark, show GLS
+			// Denmark, show GLS Package
 			$('.productcart tr.simple_shipping_1').show();
-			$('.productcart tr.simple_shipping_1 input').attr('checked', 'checked');
+			$('.productcart tr.simple_shipping_1 input').attr('checked', 'checked').trigger('change');
 		}
 		glsTypeTrigger();
 	}
 	function glsTypeTrigger(){
-		if ($('.wpsc_shipping_quote_radio input:checked').attr('id') !== 'simple_shipping_1'){
-			// To door chosen
-			$('#glswrap').hide();
-			$('input.shipping_region').val("N/A");
-			$('#shippingsameasbillingmessage').text('Your order will be shipped to the billing address');
-		} else {
-			// GLS chosen
+		if ($('.wpsc_shipping_quote_radio input:checked').attr('id') === 'simple_shipping_1'){
+			// GLS package shop chosen
 			$('#glswrap').show();
 			$('#shippingSameBilling').attr('checked', 'checked').trigger('change');
 			$('#shippingsameasbillingmessage').text('You can pick up the package in the chosen Package Shop');
 			glsShopTrigger();
+		} else if ($('.wpsc_shipping_quote_radio input:checked').attr('id') === 'simple_shipping_2') {
+			// GLS business chosen
+			$('#glswrap').hide();
+			$('input.shipping_region').val("");
+			$('#shippingsameasbillingmessage').text('IMPORTANT! You need to specify a shipping/business address for GLS delivery');
+			$('#shippingSameBilling').attr('checked', false).trigger('change');
+		} else {
+			// To door chosen
+			$('#glswrap').hide();
+			$('input.shipping_region').val("");
+			$('#shippingsameasbillingmessage').text('Your order will be shipped to the billing address');
 		}
 	}
 	// Set the GLS field (that will be saved)
@@ -65,7 +71,7 @@ jQuery.noConflict();
 		var newVal = choice.val();
 		var newText = choice.next().html();
 
-		input.val("GLS " + newVal + " - " + newText);
+		input.val(newVal + " - " + newText);
 	}
 	// Hide fields and listen for changes to user packageshop choice
 	function glsListen() {
@@ -75,6 +81,7 @@ jQuery.noConflict();
 		$('input.shipping_region').parent().prev().hide();
 		$('.productcart tr.wpsc_shipping_info').remove();
 		$('.productcart tr.wpsc_change_country').remove();
+		$('.wpsc_shipping_header .shipping_header').text('Please select how you want your delivery below. Delivery to door step is in the evening between 5 PM and 9 PM. GLS Company Address delivery is within normal working hours and must be to a business address.');
 
 		// Do country check and listen
 		glsCountryTrigger();
