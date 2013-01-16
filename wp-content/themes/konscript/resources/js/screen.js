@@ -33,10 +33,12 @@ jQuery.noConflict();
 		if ($('select#wpsc_checkout_form_7 option:selected').text() !== 'Denmark') {
 			// International, hide GLS Package
 			$('.productcart tr.simple_shipping_1').hide();
+			$('.productcart tr.simple_shipping_2').hide();
 			$('.productcart tr.simple_shipping_0 input').attr('checked', 'checked').trigger('change');
 		} else {
 			// Denmark, show GLS Package
 			$('.productcart tr.simple_shipping_1').show();
+			$('.productcart tr.simple_shipping_2').show();
 			$('.productcart tr.simple_shipping_1 input').attr('checked', 'checked').trigger('change');
 		}
 		glsTypeTrigger();
@@ -47,18 +49,21 @@ jQuery.noConflict();
 			$('#glswrap').show();
 			$('#shippingSameBilling').attr('checked', 'checked').trigger('change');
 			$('#shippingsameasbillingmessage').text('You can pick up the package in the chosen Package Shop');
+			$('.wpsc_shipping_forms h4').text('Shipping Address');
 			glsShopTrigger();
 		} else if ($('.wpsc_shipping_quote_radio input:checked').attr('id') === 'simple_shipping_2') {
 			// GLS business chosen
 			$('#glswrap').hide();
 			$('input.shipping_region').val("");
-			$('#shippingsameasbillingmessage').text('IMPORTANT! You need to specify a shipping/business address for GLS delivery');
+			$('#shippingsameasbillingmessage').text('IMPORTANT! You need to specify a business address for GLS delivery here');
 			$('#shippingSameBilling').attr('checked', false).trigger('change');
+			$('.wpsc_shipping_forms h4').text('Business Shipping Address');
 		} else {
 			// To door chosen
 			$('#glswrap').hide();
 			$('input.shipping_region').val("");
 			$('#shippingsameasbillingmessage').text('Your order will be shipped to the billing address');
+			$('.wpsc_shipping_forms h4').text('Shipping Address');
 		}
 	}
 	// Set the GLS field (that will be saved)
