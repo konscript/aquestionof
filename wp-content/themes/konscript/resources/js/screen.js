@@ -49,7 +49,8 @@ jQuery.noConflict();
 			$('#glswrap').show();
 			$('#shippingSameBilling').attr('checked', 'checked').trigger('change');
 			$('#shippingsameasbillingmessage').text('You can pick up the package in the chosen Package Shop');
-			$('.wpsc_shipping_forms h4').text('Shipping Address');
+			$('.wpsc_shipping_forms h4').hide();
+			$('.same_as_shipping_row').hide();
 			glsShopTrigger();
 		} else if ($('.wpsc_shipping_quote_radio input:checked').attr('id') === 'simple_shipping_2') {
 			// GLS business chosen
@@ -57,13 +58,15 @@ jQuery.noConflict();
 			$('input.shipping_region').val("");
 			$('#shippingsameasbillingmessage').text('IMPORTANT! You need to specify a business address for GLS delivery here');
 			$('#shippingSameBilling').attr('checked', false).trigger('change');
-			$('.wpsc_shipping_forms h4').text('Business Shipping Address');
+			$('.wpsc_shipping_forms h4').show().text('Business Shipping Address');
+			$('.same_as_shipping_row').show();
 		} else {
 			// To door chosen
 			$('#glswrap').hide();
 			$('input.shipping_region').val("");
 			$('#shippingsameasbillingmessage').text('Your order will be shipped to the billing address');
-			$('.wpsc_shipping_forms h4').text('Shipping Address');
+			$('.wpsc_shipping_forms h4').show().text('Shipping Address');
+			$('.same_as_shipping_row').show();
 		}
 	}
 	// Set the GLS field (that will be saved)
@@ -81,12 +84,12 @@ jQuery.noConflict();
 	// Hide fields and listen for changes to user packageshop choice
 	function glsListen() {
 
-		// Hide/remove stuff
+		// Hide/remove stuff and change texts
 		$('input.shipping_region').parent().hide();
 		$('input.shipping_region').parent().prev().hide();
 		$('.productcart tr.wpsc_shipping_info').remove();
 		$('.productcart tr.wpsc_change_country').remove();
-		$('.wpsc_shipping_header .shipping_header').text('Please select how you want your delivery below. Delivery to door step is in the evening between 5 PM and 9 PM. GLS Company Address delivery is within normal working hours and must be to a business address.');
+		$('.wpsc_shipping_header .shipping_header').text('Please select how you want your delivery. International delivery to door step is a worldwide service and cost € 5 for all orders. Delivery in Denmark is a free domestic service with GLS Package Shops.');
 
 		// Do country check and listen
 		glsCountryTrigger();
@@ -146,8 +149,8 @@ jQuery.noConflict();
 				$(".masterbar-goshop").hide();
 				$(".masterbar-shoppingbag").show();
 
-				var bagCount = parseInt($(".masterbar-shoppingbag span").html());
-				if(isNaN(parseInt($(".masterbar-shoppingbag span").html()))) { bagCount = 0; }
+				var bagCount = parseInt($(".masterbar-shoppingbag span").html(),10);
+				if(isNaN(parseInt($(".masterbar-shoppingbag span").html(),10))) { bagCount = 0; }
 
 				$(".masterbar-shoppingbag span").html(bagCount + 1);
 				bounceEffect('.masterbar-shoppingbag');
@@ -239,32 +242,32 @@ jQuery.noConflict();
 	function primaryMenuEffect(activateMenuItem) {
 
 		// Only run if the clicked menu item is not already the current one
-		if ($(activateMenuItem).next("ul.sub-menu.current").length == 0 && ($(activateMenuItem).next("ul.sub-menu").length != 0 || $(activateMenuItem).attr("href") == "#all")) {
+		if ($(activateMenuItem).next("ul.sub-menu.current").length === 0 && ($(activateMenuItem).next("ul.sub-menu").length !== 0 || $(activateMenuItem).attr("href") == "#all")) {
 
 			// Collapse the previous current if the previous current is not a parent of the current
-			if ($(activateMenuItem).parents('.current').length == 0) {
-    			$(".current").animate(
-    				{width: "1", opacity: 0},
-    				{queue: false, duration: 1000, complete: function() {
-    					$(this).removeAttr('style');
-    					$(this).removeClass("current");
-    				}
-    			});
-    		// If a sibling has an open sub-menu, collapse it.
-		    } else if ($(activateMenuItem).parent('li').siblings('li').children('.current').length != 0) {
-		        var parentSiblings = $(activateMenuItem).parent('li').siblings('li');
-		        parentSiblings.children('.current').animate(
-    				{width: "1", opacity: 0},
-    				{queue: false, duration: 1000, complete: function() {
-    					$(this).removeAttr('style');
-    					parentSiblings.children('.current').removeClass('current');
-    					parentSiblings.find('ul').css('opacity', '0');      // Important to reset this, otherwise fading won't happen the second time.
-                		parentSiblings.find('ul').css('display', 'none');   // Important to reset this, otherwise sliding won't happen the second time.
-    				}
-    			});
-		    }
+			if ($(activateMenuItem).parents('.current').length === 0) {
+				$(".current").animate(
+					{width: "1", opacity: 0},
+					{queue: false, duration: 1000, complete: function() {
+						$(this).removeAttr('style');
+						$(this).removeClass("current");
+					}
+				});
+			// If a sibling has an open sub-menu, collapse it.
+			} else if ($(activateMenuItem).parent('li').siblings('li').children('.current').length !== 0) {
+				var parentSiblings = $(activateMenuItem).parent('li').siblings('li');
+				parentSiblings.children('.current').animate(
+					{width: "1", opacity: 0},
+					{queue: false, duration: 1000, complete: function() {
+						$(this).removeAttr('style');
+						parentSiblings.children('.current').removeClass('current');
+						parentSiblings.find('ul').css('opacity', '0');      // Important to reset this, otherwise fading won't happen the second time.
+						parentSiblings.find('ul').css('display', 'none');   // Important to reset this, otherwise sliding won't happen the second time.
+					}
+				});
+			}
 
-		    var $current = $(activateMenuItem).next("ul.sub-menu");
+			var $current = $(activateMenuItem).next("ul.sub-menu");
 			// Expand the new current (that is clicked)
 			$current.addClass("current").animate({width: "show", opacity: 1}, {queue: false, duration: 1000});
 
@@ -273,7 +276,7 @@ jQuery.noConflict();
 
 			// Hide sub-menus to current menu (otherwise, fade in and slide effects will not happen for these, as they have already been applied once)
 			$current.find('ul').css('opacity', '0');
-    		$current.find('ul').css('display', 'none');
+			$current.find('ul').css('display', 'none');
 		}
 
 	}
@@ -283,15 +286,15 @@ jQuery.noConflict();
 	 * A menu with depth 2 will get class 'sub-sub-menu', level 3 'sub-sub-sub-menu' and so forth.
 	 */
 	function addMenuLevelClass(currentMenu) {
-	    var subMenuParents = currentMenu.parents('ul.sub-menu').length;
+		var subMenuParents = currentMenu.parents('ul.sub-menu').length;
 		if (subMenuParents > 0) {
-		    var i = subMenuParents;
-		    var classString = "sub-menu";
-		    while (i > 0) {
-		        classString = "sub-" + classString
-		        i--;
-		    }
-		    currentMenu.addClass(classString);
+			var i = subMenuParents;
+			var classString = "sub-menu";
+			while (i > 0) {
+				classString = "sub-" + classString;
+				i--;
+			}
+			currentMenu.addClass(classString);
 		}
 	}
 
@@ -319,19 +322,19 @@ jQuery.noConflict();
 		$allElm.css('position', 'absolute'); // Positions elements absolutely
 
 		// If the grid is present (#grid has elements), do masonry
-		if ($allElm.length != 0) {
+		if ($allElm.length !== 0) {
 
 			// Check if site is accessed correctly through the hashes (for index pages). If not, redirect to home and set hash route.
-			if ($('body.home').length == 0) {
+			if ($('body.home').length === 0) {
 				var newUrl = hashizeUrl(window.location.href);
 				setUrl(newUrl);
 
 			// If no hash is set, initialize splash screen with all items
-			} else if (getHash() == '') {
+			} else if (getHash() === '') {
 				setHash('all');
 
 			// Page is ready for masonry
-			} else if (getHash() == 'shop') {
+			} else if (getHash() === 'shop') {
 				setHash('category-shop');
 			} else {
 				prepareMasonry();
@@ -351,7 +354,7 @@ jQuery.noConflict();
 				// Alert Google Analytics that new async page has been called (converted to non-hashed url) and track with _gaq
 				if (checkGoogleAnalyticsLoaded()) {
 					var trackUrl = antiHashizeUrl(getHash(), true, false);
-					if (trackUrl == "all") { trackUrl == ""; }
+					if (trackUrl == "all") { trackUrl = ""; }
 					var trackLocation = '/' + trackUrl;
 					_gaq.push(['_trackPageview', trackLocation]);
 				}
@@ -383,7 +386,7 @@ jQuery.noConflict();
 		var category = getHash();
 		var searchUrl = antiHashizeUrl(category, false, true);
 		var possibleMenuItem = '#primary-menu li a[href="' + searchUrl + '"]';
-		if($(possibleMenuItem).length != 0) {
+		if($(possibleMenuItem).length !== 0) {
 			primaryMenuEffect(possibleMenuItem);
 		}
 
@@ -466,7 +469,7 @@ jQuery.noConflict();
 		});
 
 		//if there are no boxes we wont get a callback above
-		if($(gridElementSpecific).size()==0){
+		if($(gridElementSpecific).size() === 0){
 			$(loadingIcon).fadeOut("fast");
 		}
 
@@ -503,7 +506,7 @@ jQuery.noConflict();
 	// Gets a direct long url (typically to a cat or subcat) and hashize it from the base url
 	// e.g. http://aquestionof.net/category/media/campaigns > http://aquestionof.net/#category-media-campaigns
 	function hashizeUrl(url, relative) {
-		if(!relative) { var relative = false }
+		if(!relative) { relative = false; }
 
 		var currentUrl = url.replace(/\/$/,""); // Replaces the trailing slash if exists so it doesnt cause trouble when hashing
 		var category = currentUrl.replace(base,"").replace(/\//g,"-"); // Make url relative and turn slashes to dashes
@@ -517,7 +520,7 @@ jQuery.noConflict();
 
 	// If supplied by a hashed url (from hashizeUrl), it will attempt to convert it back to its static counterpart
 	function antiHashizeUrl(url, relative, trailingslash) {
-		if(!relative) { var relative = false }
+		if(!relative) { relative = false; }
 
 		var currentUrl = url.replace(/\/$/,""); // Replaces the trailing slash if exists so it doesnt cause trouble when hashing
 
@@ -547,4 +550,4 @@ jQuery.noConflict();
 		}
 	}
 
-})(jQuery)
+})(jQuery);
