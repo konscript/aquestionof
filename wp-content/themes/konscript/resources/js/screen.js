@@ -19,8 +19,8 @@ jQuery.noConflict();
 		emailFormFocusClear();
 
 		// Checkout
-		glsCountryTrigger();
 		glsListen();
+		glsCountryTrigger(true);
 		checkoutSubmit();
 	});
 
@@ -29,25 +29,24 @@ jQuery.noConflict();
 	 */
 
 	// Whenever Country is changed, figure out whether GLS should be showed
-	function glsCountryTrigger(){
+	function glsCountryTrigger(checkDefault){
 		if ($('select#wpsc_checkout_form_7 option:selected').text() !== 'Denmark') {
 			// International, hide GLS Package
 			$('.productcart tr.simple_shipping_1').hide();
 			$('.productcart tr.simple_shipping_2').hide();
-			$('.productcart tr.simple_shipping_0 input').attr('checked', 'checked').trigger('change');
+			if (checkDefault === true) { $('.productcart tr.simple_shipping_0 input').attr('checked', 'checked').trigger('change'); }
 		} else {
 			// Denmark, show GLS Package
 			$('.productcart tr.simple_shipping_1').show();
 			$('.productcart tr.simple_shipping_2').show();
-			$('.productcart tr.simple_shipping_1 input').attr('checked', 'checked').trigger('change');
+			if (checkDefault === true) { $('.productcart tr.simple_shipping_1 input').attr('checked', 'checked').trigger('change'); }
 		}
-		glsTypeTrigger();
 	}
 	function glsTypeTrigger(){
 		if ($('.wpsc_shipping_quote_radio input:checked').attr('id') === 'simple_shipping_1'){
 			// GLS package shop chosen
 			$('#glswrap').show();
-			$('#shippingSameBilling').attr('checked', 'checked').trigger('change');
+			if (!$('#shippingSameBilling').attr('checked')) { $('#shippingSameBilling').attr('checked', 'checked').trigger('change'); }
 			$('#shippingsameasbillingmessage').text('You can pick up the package in the chosen Package Shop');
 			$('.wpsc_shipping_forms h4').hide();
 			$('.same_as_shipping_row').hide();
@@ -56,8 +55,8 @@ jQuery.noConflict();
 			// GLS business chosen
 			$('#glswrap').hide();
 			$('input.shipping_region').val("");
+			if (!$('#shippingSameBilling').attr('checked')) { $('#shippingSameBilling').attr('checked', false).trigger('change'); }
 			$('#shippingsameasbillingmessage').text('IMPORTANT! You need to specify a business address for GLS delivery here');
-			$('#shippingSameBilling').attr('checked', false).trigger('change');
 			$('.wpsc_shipping_forms h4').show().text('Business Shipping Address');
 			$('.same_as_shipping_row').show();
 		} else {
@@ -92,13 +91,11 @@ jQuery.noConflict();
 		$('.wpsc_shipping_header .shipping_header').text('Please select how you want your delivery. International delivery to door step is a worldwide service and cost € 5 for all orders. Delivery in Denmark is a free domestic service with GLS Package Shops.');
 
 		// Do country check and listen
-		glsCountryTrigger();
 		$('select#wpsc_checkout_form_7').live('change',function(){
-			glsCountryTrigger();
+			glsCountryTrigger(true);
 		});
 
 		// Listen to shipping type
-		glsTypeTrigger();
 		$('.wpsc_shipping_quote_radio input').live('change',function(){
 			glsTypeTrigger();
 		});
@@ -106,6 +103,11 @@ jQuery.noConflict();
 		// Listen for GLS user choice
 		$('#gls_result input').live('change',function(){
 			glsShopTrigger($(this));
+		});
+
+		// Quickfixes a bug where shipping types reappear when checking shippingSameBilling and country is not Denmark
+		$('#shippingSameBilling').live('change',function(){
+			glsCountryTrigger(false);
 		});
 	}
 	// Handlers when submitting the purchase
