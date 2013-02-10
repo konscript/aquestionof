@@ -78,9 +78,9 @@ jQuery.noConflict();
 		if (choice.val() !== undefined) {
 			var newVal = choice.val();
 			var newText = choice.next().html();
-			input.val(newVal + " - " + newText);
+			input.val("GLS" + newVal + " - " + newText);
 		} else {
-			input.val("Please contact customer manually for chosen GLS Shop");
+			input.val("GLS shop not found, please contact customer");
 		}
 	}
 	// Hide fields and listen for changes to user packageshop choice
