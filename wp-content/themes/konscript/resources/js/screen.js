@@ -21,7 +21,7 @@ jQuery.noConflict();
 		// Checkout
 		glsListen();
 		glsCountryTrigger(true);
-		checkoutSubmit();
+		checkoutSubmitListen();
 	});
 
 	/**
@@ -54,7 +54,7 @@ jQuery.noConflict();
 		} else if ($('.wpsc_shipping_quote_radio input:checked').attr('id') === 'simple_shipping_2') {
 			// GLS business chosen
 			$('#glswrap').hide();
-			$('input.shipping_region').val("");
+			//$('input.shipping_region').val("");
 			if (!$('#shippingSameBilling').attr('checked')) { $('#shippingSameBilling').attr('checked', false).trigger('change'); }
 			$('#shippingsameasbillingmessage').text('IMPORTANT! You need to specify a business address for GLS delivery here');
 			$('.wpsc_shipping_forms h4').show().text('Business Shipping Address');
@@ -62,7 +62,7 @@ jQuery.noConflict();
 		} else {
 			// To door chosen
 			$('#glswrap').hide();
-			$('input.shipping_region').val("");
+			//$('input.shipping_region').val("");
 			$('#shippingsameasbillingmessage').text('Your order will be shipped to the billing address');
 			$('.wpsc_shipping_forms h4').show().text('Shipping Address');
 			$('.same_as_shipping_row').show();
@@ -70,22 +70,25 @@ jQuery.noConflict();
 	}
 	// Set the GLS field (that will be saved)
 	function glsShopTrigger(choice) {
-		if(!choice){
-			choice = $('#gls_result input:checked');
+
+		if(!choice){ choice = $('#gls_result input:checked'); }
+
+		var input = $('textarea[title="shippingaddress"]');
+
+		if (choice.val() !== undefined) {
+			var newVal = choice.val();
+			var newText = choice.next().html();
+			input.val(newVal + " - " + newText);
+		} else {
+			input.val("Please contact customer manually for chosen GLS Shop");
 		}
-		var input = $('input.shipping_region');
-
-		var newVal = choice.val();
-		var newText = choice.next().html();
-
-		input.val(newVal + " - " + newText);
 	}
 	// Hide fields and listen for changes to user packageshop choice
 	function glsListen() {
 
 		// Hide/remove stuff and change texts
-		$('input.shipping_region').parent().hide();
-		$('input.shipping_region').parent().prev().hide();
+		//$('input.shipping_region').parent().hide();
+		//$('input.shipping_region').parent().prev().hide();
 		$('.productcart tr.wpsc_shipping_info').remove();
 		$('.productcart tr.wpsc_change_country').remove();
 		$('.wpsc_shipping_header .shipping_header').text('Please select how you want your delivery. International delivery to door step is a worldwide service and cost € 5 for all orders. Delivery in Denmark is a free domestic service with GLS Package Shops.');
@@ -111,7 +114,7 @@ jQuery.noConflict();
 		});
 	}
 	// Handlers when submitting the purchase
-	function checkoutSubmit() {
+	function checkoutSubmitListen() {
 		$('.wpsc_make_purchase input.wpsc_buy_button').click(function(e){
 			glsTypeTrigger();
 		});
